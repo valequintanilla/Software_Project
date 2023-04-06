@@ -2,6 +2,7 @@ import {useRef, useState, useEffect} from "react";
 import {faCheck, faTimes, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import axios from "./api/axios"
+import {Link} from 'react-router-dom';
 //import './index.css';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/; //4 to 20 chars for the username
@@ -201,8 +202,7 @@ const REGISTER_URL = '/register';
                     <p>
                         Already registered?<br />
                         <span className = "line">
-                            {/*put router link here*/}
-                            <a href = "#">Sign In</a>
+                            <Link to = '/Login'>Sign In</Link>
                         </span>
                     </p>
                 </section>
