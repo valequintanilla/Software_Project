@@ -40,7 +40,7 @@ const Login = () => {
                             <h1>You are logged in!</h1>
                             <br/>
                             <p>
-                                <a href="#">Go to Home</a>
+                                <Link to="/">Go to Home</Link>
                             </p>
                         </section>
                     ) : (
