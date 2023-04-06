@@ -4,11 +4,21 @@ function Navbar() {
 
   return (
     <div>
-        <Link to = "/">Home</Link>
-        <br/>
-        <Link to ='/Register'>Create Account</Link>
-        <br/>
-        <Link to = '/Login'>Login</Link>
+
+        <Link to = "/">
+          <button>Home</button>
+          </Link>
+        
+        <Link to ='/Register'>
+          <button>Create Account</button>
+          </Link>
+        
+        <Link to = '/Login'>
+          <button>Sign In</button>
+        </Link>
+        <Link to = '/AdminLogin'>
+          <button>Admin?</button>
+        </Link>
     </div>
     
   );

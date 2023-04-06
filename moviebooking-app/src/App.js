@@ -5,6 +5,7 @@ import Login from './Pages/Login';
 import Navbar from './components/Navbar';
 import { BrowserRouter , Routes, Route} from 'react-router-dom';
 import Home from './Pages/Home';
+import AdminLogin from './Pages/AdminLogin';
 function App() {
 
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path = "/" element={<Home/>} exact/>
           <Route path = "/Register" element={<Register/>}/>
           <Route path = "/Login" element={<Login/>}/>
+          <Route path = "/AdminLogin" element = {<AdminLogin/>} />
         </Routes>
         
       </div>
