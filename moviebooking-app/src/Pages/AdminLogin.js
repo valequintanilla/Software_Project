@@ -6,7 +6,7 @@ const AdminLogin = () => {
     const errRef = useRef();
 
     //States taht corresponds to input and error 
-    const [user, setUser] = useState('');
+    const [email,setEmail] = useState('');
     const[pwd, setPwd] = useState('');
     const[errMsg, setErrMsg] = useState('');
     
@@ -20,13 +20,13 @@ const AdminLogin = () => {
 
     useEffect(() =>{
         setErrMsg('');
-    }, [user, pwd])
+    }, [email, pwd])
     //Handle submit function
     const handleSubmit = async (e) =>{
         e.preventDefault();
         /*Next four lines are just to make sure code work it is still not linked to the back end*/
-        console.log(user, pwd);
-        setUser(''); //once submitted it will clear the username and pwd components
+        console.log(email, pwd);
+        setEmail(''); //once submitted it will clear the username and pwd components
         setPwd('');
         setSuccess(true);
         
@@ -50,14 +50,14 @@ const AdminLogin = () => {
                     </p>
                     <h1>Admin Login</h1>
                     <form onSubmit = {handleSubmit}>
-                        <label htmlFor="username">Username:</label>
+                        <label htmlFor="username">Email:</label>
                         <input 
                         type = "text" 
-                        id="username"
+                        id="email"
                         ref={userRef}
                         autoComplete="off" /*wont suggest previous inputs*/
-                        onChange={(e) => setUser(e.target.value)}
-                        value={user}
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
                         required
                         />
                         <label htmlFor="password">Password:</label>
