@@ -3,9 +3,13 @@ import {faCheck, faTimes, faInfoCircle} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import axios from "./api/axios"
 import {Link} from 'react-router-dom';
+
 //import './index.css';
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/; //4 to 20 chars for the username
+const NAME_REGEX = /^[a-zA-z]{1,20}$/ //name can only have alphabetic values
+const EMAIL_REGEX = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/ //email
+const ADDRESS_REGEX = /^[a-zA-z0-9. ]{1,30}$/
+const PHONE_REGEX = /^^\(\d{3}\)\d{3}-\d{4}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 //set const url
@@ -14,10 +18,33 @@ const REGISTER_URL = '/register';
     const userRef = useRef(); //get users import
     const errRef = useRef(); //error input
 
-    const [user, setUser] = useState(''); //tied to user import
-    const [validName, setValidName] = useState(false); //whether the name validates or not
-    const [userFocus, setUserFocus] = useState(false); 
+    //First Name
+    const [fname, setFname] = useState('');
+    const [validFname, setValidFname] = useState(false);
+    const [fnameFocus, setfNameFocus] = useState(false);
 
+    //Last Name
+    const [lname, setLname] = useState('');
+    const [validLname, setValidLname] = useState(false);
+    const [lnameFocus, setlNameFocus] = useState(false);
+
+    //email
+    const [email, setEmail] = useState('');
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
+
+    //Home address
+    const [addr, setAddr] = useState('');
+    const [validAddr, setValidAddr]= useState(false);
+    const [addrFocus, setAddrFocus] = useState(false);
+
+    //Phone number
+    const [phone, setPhone] = useState('');
+    const [validPhone, setValidPhone]= useState(false);
+    const [phoneFocus, setPhoneFocus] = useState(false);
+
+   
+    //Password
     const [pwd, setPwd] = useState('');
     const [validPwd, setValidPwd] = useState(false); //whether the password validates or not
     const [pwdFocus, setPwdFocus] = useState(false); 
@@ -33,13 +60,47 @@ const REGISTER_URL = '/register';
     useEffect(() => {
         userRef.current.focus();
     }, [])
-    //Validate euser name
+    
+    //Validate  first name 
     useEffect(() => {
-        const result = USER_REGEX.test(user);
+        const result = NAME_REGEX.test(fname);
         console.log(result);
-        console.log(user);
-        setValidName(result);
-    }, [user])
+        console.log(fname);
+        setValidFname(result);
+    }, [fname])
+
+    //Validate  last name 
+    useEffect(() => {
+        const result = NAME_REGEX.test(lname);
+        console.log(result);
+        console.log(lname);
+        setValidLname(result);
+    }, [lname])
+
+
+    //Validate  email 
+    useEffect(() => {
+        const result = EMAIL_REGEX.test(email);
+        console.log(result);
+        console.log(email);
+        setValidEmail(result);
+    }, [email])
+
+    //Validate  home address 
+    useEffect(() => {
+        const result = ADDRESS_REGEX.test(addr);
+        console.log(result);
+        console.log(addr);
+        setValidAddr(result);
+    }, [addr])
+
+    //Validate  phone number 
+    useEffect(() => {
+        const result = PHONE_REGEX.test(phone);
+        console.log(result);
+        console.log(phone);
+        setValidPhone(result);
+    }, [phone])
 
     //Validate password
     useEffect(() => {
@@ -54,13 +115,13 @@ const REGISTER_URL = '/register';
     //Error message
     useEffect(() => {
         setErrMsg('');
-    }, [user, pwd, matchPwd])
+    }, [email, pwd, matchPwd])
 
     //Function to handle submit 
     const handleSubmit = async (e) => {
         e.preventDefault();
         //Protects if button enabled with JS hack
-        const v1 = USER_REGEX.test(user);
+        const v1 = EMAIL_REGEX.test(email);
         const v2 = PWD_REGEX.test(pwd);
         if(!v1 || !v2){
             setErrMsg("Invalid Entry");
@@ -73,7 +134,7 @@ const REGISTER_URL = '/register';
         //Back end : try and ctach block
         try{
             const response = await axios.post(REGISTER_URL
-                , JSON.stringify({user, pwd}), 
+                , JSON.stringify({email, pwd}), 
                 {
                 headers : {'Content-Type': 'application/json'},
                 withcredentials: true
@@ -112,35 +173,117 @@ const REGISTER_URL = '/register';
                     "offscreen"} aria-live= "assertive">{errMsg}</p>
                     <h1>Register</h1>
                     <form onSubmit = {handleSubmit}>
-                        <label htmlFor = "username">
-                            Username:
-                            <span className= {validName ? "valid" : "hide" }> 
+                        <label htmlFor = "first-name">
+                            First Name:
+                            <span className= {validFname ? "valid" : "hide" }> 
                                 <FontAwesomeIcon icon = {faCheck} />
                             </span>
-                            <span className= {validName || !user ? "hide" : "invalid"}>
+                            <span className= {validFname || !fname ? "hide" : "invalid"}>
                                 <FontAwesomeIcon icon = {faTimes} />
                             </span>
                         </label>
                         <input 
                             type = "text"
-                            id = "username"
+                            id = "first-name"
                             ref = {userRef}
                             autoComplete = "off" //we dont want to see previous suggestions because this is the registration page
-                            onChange = {(e) => setUser(e.target.value)}
+                            onChange = {(e) => setFname(e.target.value)}
                             required
-                            aria-invalid = {validName ? "false" : "true"}
+                            aria-invalid = {validFname ? "false" : "true"}
                             aria-describedby = "uidnote" 
-                            onFocus = {() => setUserFocus(true)} 
-                            onBlur = {() => setUserFocus(false)}
+                            onFocus = {() => setfNameFocus(true)} 
+                            onBlur = {() => setfNameFocus(false)}
                         />
-                        <p id ="uidnote" className = {userFocus && user &&
-                        !validName ? "instructions" : "offscreen"}>
-                            <FontAwesomeIcon icon={faInfoCircle}/>
-                            4 to 24 characters.<br />
-                            Must begin with a letter.<br />
-                            Letters, numbers, underscores, hyphens allowed.
+                        <label htmlFor = "last-name">
+                            Last Name:
+                            <span className= {validLname ? "valid" : "hide" }> 
+                                <FontAwesomeIcon icon = {faCheck} />
+                            </span>
+                            <span className= {validLname || !fname ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon = {faTimes} />
+                            </span>
+                        </label>
+                        <input 
+                            type = "text"
+                            id = "last-name"
+                            ref = {userRef}
+                            autoComplete = "off" //we dont want to see previous suggestions because this is the registration page
+                            onChange = {(e) => setLname(e.target.value)}
+                            required
+                            aria-invalid = {validLname ? "false" : "true"}
+                            aria-describedby = "uidnote" 
+                            onFocus = {() => setlNameFocus(true)} 
+                            onBlur = {() => setlNameFocus(false)}
+                        />
+                        <label htmlFor = "email">
+                            Email:
+                            <span className= {validEmail ? "valid" : "hide" }> 
+                                <FontAwesomeIcon icon = {faCheck} />
+                            </span>
+                            <span className= {validEmail || !email ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon = {faTimes} />
+                            </span>
+                        </label>
+                        <input 
+                            type = "text"
+                            id = "email"
+                            ref = {userRef}
+                            autoComplete = "off" //we dont want to see previous suggestions because this is the registration page
+                            onChange = {(e) => setEmail(e.target.value)}
+                            required
+                            aria-invalid = {validEmail ? "false" : "true"}
+                            aria-describedby = "uidnote" 
+                            onFocus = {() => setEmailFocus(true)} 
+                            onBlur = {() => setEmailFocus(false)}
+                        />
+                        <label htmlFor ="home-address">
+                            Address:
+                            <span className= {validAddr ? "valid" : "hide"}>
+                                <FontAwesomeIcon icon = {faCheck} />
+                            </span>
+                            <span className= {validAddr || !addr ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon = {faTimes} />
+                            </span>
+                        </label>
+                        <input 
+                            type = "text"
+                            id = "home-address"
+                            ref = {userRef}
+                            autoComplete = "off" //we dont want to see previous suggestions because this is the registration page
+                            onChange = {(e) => setAddr(e.target.value)}
+                            required
+                            aria-invalid = {validAddr ? "false" : "true"}
+                            aria-describedby = "uidnote" 
+                            onFocus = {() => setAddrFocus(true)} 
+                            onBlur = {() => setAddrFocus(false)}
+                        />
+                        <label htmlFor ="phone">
+                            Phone Number:
+                            <span className= {validPhone ? "valid" : "hide"}>
+                                <FontAwesomeIcon icon = {faCheck} />
+                            </span>
+                            <span className= {validPhone || !phone ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon = {faTimes} />
+                            </span>
+                        </label>
+                        <input 
+                            type = "text"
+                            id = "phone"
+                            ref = {userRef}
+                            autoComplete = "off" //we dont want to see previous suggestions because this is the registration page
+                            onChange = {(e) => setPhone(e.target.value)}
+                            required
+                            aria-invalid = {validPhone ? "false" : "true"}
+                            aria-describedby = "phonenote" 
+                            onFocus = {() => setPhoneFocus(true)} 
+                            onBlur = {() => setPhoneFocus(false)}
+                        />
+                        <p id = "phonenote" className= {phoneFocus && !validPhone ? "instructions": "offscreen"}>
+                            <FontAwesomeIcon icon= {faInfoCircle} />
+                            No spaces.<br />
+                            Must be in following format (###)###-####.<br />
+                            
                         </p>
-
                         <label htmlFor ="password">
                             Password:
                             <span className= {validPwd ? "valid" : "hide"}>
@@ -196,7 +339,7 @@ const REGISTER_URL = '/register';
                             Must match the first password input field.
                         </p>
 
-                        <button disabled = {!validName || !validPwd || !validMatch ? true: false}
+                        <button disabled = {!validEmail || !validPwd || !validMatch ? true: false}
                         >Sign up</button>
                     </form>
                     <p>
