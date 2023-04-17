@@ -1,10 +1,10 @@
 import React from 'react';
+import Logo from './images/MBS.png';
  
 const home = () => {
     return (
        <div className='homepage'>
-          <h1>Home</h1>
-           <p>Home page body content</p>
+        <img className = "logo" src = {Logo}/>
        </div>
     );
 }
