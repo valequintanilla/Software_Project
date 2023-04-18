@@ -1,0 +1,22 @@
+body{
+    background-color: white;
+}
+
+button{
+    display: inline-block;
+    color: black; 
+    padding: 15px 25px;
+    font-size: 24px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    background-color: darkorange;
+    border: none;
+    border-radius: 15px;
+    
+
+
+}
+button:hover {
+    background-color: rgb(177, 92, 0);
+  }
