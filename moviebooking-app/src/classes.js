@@ -27,7 +27,8 @@ class User {
 }
 
 class Movie {
-  constructor(title, release_date, poster_url) {
+  constructor(id, title, release_date, poster_url) {
+    this.id = id;
     this.title = title;
     this.release_date = release_date;
     this.poster_url = poster_url;
@@ -35,15 +36,17 @@ class Movie {
 }
 
 class Theater {
-  constructor(name, address) {
+  constructor(id, name, address) {
+    this.id = id;
     this.name = name;
     this.address = address;
   }
 }
 
 class Review {
-  constructor(movie, author, body) {
+  constructor(movie, id, author, body) {
     this.movie = movie;
+    this.id = id;
     this.author = author;
     this.body = body;
   }
@@ -58,8 +61,9 @@ class Showing {
 }
 
 class PaymentMethod {
-  constructor(user, payment_type, payment_info) {
+  constructor(user, id, payment_type, payment_info) {
     this.user = user;
+    this.id = id;
     this.payment_type = payment_type;
     this.payment_info = payment_info;
   }
