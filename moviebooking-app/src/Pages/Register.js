@@ -13,7 +13,7 @@ const PHONE_REGEX = /^^\(\d{3}\)\d{3}-\d{4}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 //set const url
-const REGISTER_URL = '/register';
+const REGISTER_URL = '/Register';
  const Register = () => {
     const userRef = useRef(); //get users import
     const errRef = useRef(); //error input
@@ -163,7 +163,7 @@ const REGISTER_URL = '/register';
                     <section>
                         <h1>Success!</h1>
                         <p>
-                            <a href="#">Sign In</a>
+                           <Link to = '/Userhome'></Link>
                         </p>
                     </section>
                 
