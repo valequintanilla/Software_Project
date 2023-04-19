@@ -20,6 +20,9 @@ function Navbar() {
         <Link to = '/AdminLogin'>
           <button>Admin?</button>
         </Link>
+        <Link to = '/Userhome'>
+          <button>User Home</button>
+        </Link>
     </div>
     
   );
