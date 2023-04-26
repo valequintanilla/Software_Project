@@ -1,6 +1,17 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 const AdminHomepage = () => {
+  const history = useHistory();
+
+  const handleCurrentStatus = () => {
+    history.push('/current-status');
+  };
+
+  const handleManageShow = () => {
+    history.push('/manage-show');
+  };
+
   return (
     <div
       style={{
@@ -14,6 +25,7 @@ const AdminHomepage = () => {
     >
       <h1>Admin Homepage</h1>
       <button
+        onClick={handleCurrentStatus}
         style={{
           backgroundColor: 'white',
           color: 'black',
@@ -24,6 +36,7 @@ const AdminHomepage = () => {
         Current Status
       </button>
       <button
+        onClick={handleManageShow}
         style={{
           backgroundColor: 'white',
           color: 'black',
