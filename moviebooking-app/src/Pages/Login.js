@@ -1,6 +1,7 @@
 import {useRef, useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import UserHome from './UserHome';
+import {authourizeUser} from '../API_Calls/API.js';
 
 //import './index.css';
 
@@ -29,6 +30,10 @@ const Login = () => {
         e.preventDefault();
         /*Next four lines are just to make sure code work it is still not linked to the back end*/
         console.log(email, pwd);
+
+        //calling api function:
+        authourizeUser(email);
+        
         setEmail(''); //once submitted it will clear the username and pwd components
         setPwd('');
         setSuccess(true);
