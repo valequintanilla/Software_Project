@@ -5,19 +5,88 @@
  * author: Jonathon Surles
  */
 
+
+const Classes = require("./classes");
+const fs = require('fs');
+
+/*
+ * parse a csv with separator |
+ * input: the path to the file
+ * output: a 2d array, each row being a record,
+ *         and each column being a value
+ */
+function parseFile(path) {
+    text = fs.readFileSync(path, {encoding: "utf8"});
+    lines = text.split("\n");
+    records = [];
+    for (line of lines) {
+        if (line) {
+            records.push(line.split("|"));
+        }
+    }
+    return records;
+}
+
+/*
+ * write to a csv with separator |
+ * input:
+ *   path:    the path to the file
+ *   records: the 2d array, each row being a record,
+ *            each column being a value
+ * output: none
+ * side effects: the file at path is written as a csv
+ */
+function writeFile(path, records) {
+    lines = [];
+    for (record of records) {
+        lines.push(record.join("|"));
+    }
+    text = lines.join("\n");
+    fs.writeFileSync(path, text);
+}
+
 /*
  * get the user with the certain email from the database
  * input: email (string)
  * output: user (User object) 
  */
-function getUserFromEmail(email) {}
+function getUserFromEmail(email) {
+    records = parseFile("database/users.csv");
+    for (record of records) {
+        if (record[0] === email) {
+            userType = record[5] == "admin" ?
+                Classes.UserType.Admin : Classes.UserType.Customer;
+            return new Classes.User(
+                record[0], // email
+                record[2], // name
+                record[3], // phone number
+                record[4], // home address
+                userType, // user type
+            );
+        } 
+    }
+    return null;
+}
 
 /*
  * get the movie with the certain id from the database
  * input: id (integer)
  * output: movie (Movie object)
  */
-function getMovieFromID(id) {}
+function getMovieFromID(id) {
+    records = parseFile("database/movies.csv");
+    for (record of records) {
+        if (record[0] === id) {
+            new Classes.Movie (
+                record[0], // id
+                record[1], // title
+                record[2], // release date
+                record[3], // poster url
+            );
+        } 
+    }
+    return null;
+}
 
 /*
  * register a new customer user
@@ -25,7 +94,22 @@ function getMovieFromID(id) {}
  * output: none
  * side effect: user information is added to database
  */
-function registerCustomer(user, password) {}
+// TODO: assumes no duplicate emails
+function registerCustomer(user, password) {
+    records = parseFile("database/users.csv");
+    typestr = user.userType == Classes.UserType.Admin ?
+        "admin" : "customer"
+    record = [
+        user.email,
+        password,
+        user.name,
+        user.phone,
+        user.home_address,
+        typestr
+    ];
+    records.push(record);
+    writeFile("database/users.csv", records);
+}
 
 /*
  * attempt to log in as a customer

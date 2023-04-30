@@ -76,3 +76,15 @@ class Ticket {
     this.owner = owner;
   }
 }
+
+module.exports = {
+  UserType,
+  PaymentType,
+  User,
+  Movie,
+  Theater,
+  Review,
+  Showing,
+  PaymentMethod,
+  Ticket
+}
