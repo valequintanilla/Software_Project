@@ -379,14 +379,29 @@ function addReview(review) {
  * input: movie (Movie object)
  * output: Showing object array
  */
-function getShowings(movie) {}
+function getShowings(movie) {
+    return getShowingsByID(movie.id);
+}
 
 /*
  * get all showings for a movie
  * input: movieID (integer)
  * output: Showing object array
  */
-function getShowingsByID(movieID) {}
+function getShowingsByID(movieID) {
+    records = parseFile(d_showings);
+    showings = []
+    for (record of records) {
+        if (parseInt(record[0]) == movieID) {
+            showings.push(new Classes.Record(
+                parseInt(record[0]), // movie id
+                parseInt(record[1]), // theater id
+                new Date(record[2])  // datetime
+            ));
+        }
+    }
+    return showings;
+}
 
 /*
  * add ticket to database
@@ -394,7 +409,18 @@ function getShowingsByID(movieID) {}
  * output: none
  * side effect: ticket information is added to database
  */
-function addTicket(ticket) {}
+function addTicket(ticket) {
+    records = parseFile(d_tickets);
+    record = [
+        ticket.movie,
+        ticket.theater,
+        ticket.time.toISOString(),
+        ticket.seat,
+        ticket.owner
+    ];
+    records.push(record);
+    writeFile(d_tickets, records);
+}
 
 /*
  * add multiple tickets to database
@@ -402,35 +428,67 @@ function addTicket(ticket) {}
  * output: none
  * side effect: ticket information is added to database
  */
-function addTickets(tickets) {}
+function addTickets(tickets) {
+    for (ticket of tickets) {
+        addTicket(ticket);
+    }
+}
 
 /*
  * get all tickets owned by a user
  * input: user (User object)
  * output: Ticket object array
  */
-function getTickets(user) {}
+function getTickets(user) {
+    return getTicketsByEmail(user.email);
+}
 
 /*
  * get all tickets owned by a user
  * input: userEmail (string)
  * output: Ticket object array
  */
-function getTicketsByEmail(userEmail) {}
+function getTicketsByEmail(userEmail) {
+    records = parseFile(d_tickets);
+    tickets = [];
+    for (record of records) {
+        if (record[4] == userEmail) {
+            tickets.append(new Classes.Ticket(
+                parseInt(record[0]), // movie id
+                parseInt(record[1]), // theater id
+                new Date(record[2]), // datetime
+                parseInt(record[3]), // seat number
+                record[4]            // owner email
+            ));
+        }
+    }
+    return tickets;
+}
 
 /*
  * get all tickets of a particular movie sold
  * input: movie (Movie object)
  * output: integer
  */
-function getTicketsSold(movie) {}
+function getTicketsSold(movie) {
+    return getTicketsSoldByID(movie.id);
+}
 
 /*
  * get all tickets of a particular movie sold
  * input: movieID (integer)
  * output: integer
  */
-function getTicketsSoldByID(movieID) {}
+function getTicketsSoldByID(movieID) {
+    records = parseFile(d_tickets);
+    count = 0;
+    for (record of records) {
+        if (parseInt(record[0]) == movieID) {
+            count += 1;
+        }
+    }
+    return count;
+}
 
 /*
  * get all stored payment info for a user
