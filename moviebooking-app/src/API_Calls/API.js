@@ -127,4 +127,4 @@ const deleteMOvie = (movie_id) =>{
     })
 }
 
-export {authourizeUser , registerUser} ;
+export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMOvie, } ;
