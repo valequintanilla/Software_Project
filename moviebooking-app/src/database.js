@@ -5,9 +5,18 @@
  * author: Jonathon Surles
  */
 
-
+// modules
 const Classes = require("./classes");
 const fs = require('fs');
+
+// database paths
+const d_users = "database/users.csv";
+const d_movies = "database/movies.csv";
+const d_theaters = "database/movies.csv";
+const d_reviews = "database/reviews.csv";
+const d_showings = "database/showings.csv";
+const d_payments = "database/payments.csv";
+const d_tickets = "database/tickets.csv";
 
 /*
  * parse a csv with separator |
@@ -46,12 +55,43 @@ function writeFile(path, records) {
 }
 
 /*
+ * get the next available movie id
+ * output: id (integer) which is not in use in movies database
+ */
+function getNextMovieID() {
+    i = 1;
+    while (getMovieFromID(i)) {
+        i += 1;
+    }
+    return i;
+}
+
+/*
+ * get the next available review id for the given movie
+ * input: movie id
+ * output: id (integer) which is not in use for a review of movie
+ */
+function getNextReviewID(movieID) {
+    reviews = getReviewsByID(movieID);
+    i = 1;
+    // get i as the largest value of current review ids
+    for (review of reviews) {
+        i = review.id > i ? review.id : i;
+    }
+    // then i + 1 must be unused
+    return i + 1;
+}
+
+// TODO (skipped)
+function getNextPaymentID(userEmail) {}
+
+/*
  * get the user with the certain email from the database
  * input: email (string)
  * output: user (User object) 
  */
 function getUserFromEmail(email) {
-    records = parseFile("database/users.csv");
+    records = parseFile(d_users);
     for (record of records) {
         if (record[0] === email) {
             userType = record[5] == "admin" ?
@@ -61,7 +101,7 @@ function getUserFromEmail(email) {
                 record[2], // name
                 record[3], // phone number
                 record[4], // home address
-                userType, // user type
+                userType   // user type
             );
         } 
     }
@@ -74,14 +114,14 @@ function getUserFromEmail(email) {
  * output: movie (Movie object)
  */
 function getMovieFromID(id) {
-    records = parseFile("database/movies.csv");
+    records = parseFile(d_movies);
     for (record of records) {
         if (record[0] === id) {
             new Classes.Movie (
-                record[0], // id
-                record[1], // title
-                record[2], // release date
-                record[3], // poster url
+                parseInt(record[0]), // id
+                record[1],           // title
+                new Date(record[2]), // release date
+                record[3]            // poster url
             );
         } 
     }
@@ -96,7 +136,7 @@ function getMovieFromID(id) {
  */
 // TODO: assumes no duplicate emails
 function registerCustomer(user, password) {
-    records = parseFile("database/users.csv");
+    records = parseFile(d_users);
     typestr = user.userType == Classes.UserType.Admin ?
         "admin" : "customer"
     record = [
@@ -108,7 +148,7 @@ function registerCustomer(user, password) {
         typestr
     ];
     records.push(record);
-    writeFile("database/users.csv", records);
+    writeFile(d_users, records);
 }
 
 /*
@@ -118,7 +158,25 @@ function registerCustomer(user, password) {
  *   User object if login is successful
  *   null if login is unsuccessful
  */
-function loginCustomer(email, password) {}
+function loginCustomer(email, password) {
+    records = parseFile(d_users);
+    for (record of records) {
+        if (record[0] === email) {
+            // check for incorrect password or wrong user type
+            if (record[1] != password || record[5] != "customer") {
+                return null;
+            }
+            return new Classes.User(
+                record[0], // email
+                record[2], // name
+                record[3], // phone number
+                record[4], // home address
+                Classes.UserType.Customer // user type
+            );
+        } 
+    }
+    return null;
+}
 
 /*
  * attempt to log in as an admin
@@ -127,61 +185,194 @@ function loginCustomer(email, password) {}
  *   User object if login is successful
  *   null if login is unsuccessful
  */
-function loginAdmin(email, password) {}
+function loginAdmin(email, password) {
+    records = parseFile(d_users);
+    for (record of records) {
+        if (record[0] === email) {
+            // check for incorrect password or wrong user type
+            if (record[1] != password || record[5] != "customer") {
+                return null;
+            }
+            return new Classes.User(
+                record[0], // email
+                record[2], // name
+                record[3], // phone number
+                record[4], // home address
+                Classes.UserType.Customer // user type
+            );
+        } 
+    }
+    return null;
+}
 
 /*
  * get the top (num) best selling movies
  * input: num (positive integer)
  * output: Movie object array
  */
+// TODO (skipped)
 function getBestSellers(num) {}
-
-/*
- * get all current movies
- * output: Movie object array
- */
-function getCurrentCatalog() {}
-
-/*
- * get all upcoming movies
- * output: Movie object array
- */
-function getUpcomingCatalog() {}
 
 /*
  * get all current & upcoming movies
  * output: Movie object array
  */
-function getFullCatalog() {}
+function getFullCatalog() {
+    records = parseFile(d_movies);
+    movies = []
+    for (record of records) {
+        movie = new Classes.Movie(
+            parseInt(record[0]), // id
+            record[1],           // title
+            new Date(record[2]), // release date
+            record[3]            // poster url
+        );
+        movies.push(movie);
+    }
+    return movies;
+}
+
+/*
+ * get all current movies
+ * output: Movie object array
+ */
+function getCurrentCatalog() {
+    fullCatalog = getFullCatalog();
+    currentCatalog = [];
+    currentDate = new Date();
+    for (movie of fullCatalog) {
+        if (movie.releaseDate < currentDate) {
+            currentCatalog.push(movie);
+        }
+    }
+    return currentCatalog;
+}
+
+/*
+ * get all upcoming movies
+ * output: Movie object array
+ */
+function getUpcomingCatalog() {
+    fullCatalog = getFullCatalog();
+    upcomingCatalog = [];
+    currentDate = new Date();
+    for (movie of fullCatalog) {
+        if (currentDate < movie.releaseDate) {
+            currentCatalog.push(movie);
+        }
+    }
+    return upcomingCatalog;
+}
 
 /*
  * search all movies by a string
  * input: query (string)
  * output: Movie object array
  */
-function searchMovies(query) {}
+function searchMovies(query) {
+    catalog = getFullCatalog();
+    searchResults = [];
+    for (movie of catalog) {
+        if (movie.title.includes(query)) {
+            searchResults.push(movie);
+        }
+    }
+    return searchResults;
+}
+
+/*
+ * delete movie from database
+ * input: movie (Movie object)
+ * output: none
+ * side effect: movie is removed from database
+ */
+function removeMovie(movie) {
+    removeMovieByID(movie.id);
+}
+
+/*
+ * delete movie from database
+ * input: movieID (integer)
+ * output: none
+ * side effect: movie is removed from database
+ */
+function removeMovieByID(movieID) {
+    records = parseFile(d_movies);
+    for (i in records) {
+        if (parseInt(records[i][0]) == movieID) {
+            records.splice(i, 1); // delete ith record
+            break;
+        }
+    }
+    writeFile(d_movies);
+}
+
+/*
+ * add movie to database
+ * input: movie (Movie object)
+ * output: none
+ * side effect: movie is added to database
+ */
+function addMovie(movie) {
+    records = parseFile(d_movies);
+    record = [
+        movie.id,
+        movie.title,
+        movie.release_date.toISOString(),
+        movie.poster_url,
+    ];
+    records.push(record);
+    writeFile(d_users, records);
+}
 
 /*
  * get all reviews for a movie
  * input: movie (Movie object)
  * output: Review object array
  */
-function getReviews(movie) {}
+function getReviews(movie) {
+    return getReviewsByID(movie.id);
+}
 
 /*
  * get all reviews for a movie
  * input: movieID (integer)
  * output: Review object array
  */
-function getReviewsByID(movieID) {}
+function getReviewsByID(movieID) {
+    records = parseFile(d_reviews);
+    reviews = []
+    for (record of records) {
+        review = new Classes.Review(
+            parseInt(record[0]), // movie id
+            parseInt(record[1]), // review id
+            record[2],           // author email
+            record[3]            // review body
+        )
+        if (review.movieID == movieID) {
+            revies.push(review);
+        }
+    }
+    return reviews;
+}
 
 /*
  * add a review for a movie
- * input: review object
+ * input: review (Review object)
  * output: none
  * side effect: review information is added to database
  */
-function addReview(review) {}
+function addReview(review) {
+    records = parseFile(d_reviews);
+    record = [
+        movie.id,
+        movie.title,
+        movie.release_date.toISOString(),
+        movie.poster_url,
+    ];
+    records.push(record);
+    writeFile(d_reviews, records);
+}
 
 /*
  * get all showings for a movie
@@ -228,6 +419,20 @@ function getTickets(user) {}
 function getTicketsByEmail(userEmail) {}
 
 /*
+ * get all tickets of a particular movie sold
+ * input: movie (Movie object)
+ * output: integer
+ */
+function getTicketsSold(movie) {}
+
+/*
+ * get all tickets of a particular movie sold
+ * input: movieID (integer)
+ * output: integer
+ */
+function getTicketsSoldByID(movieID) {}
+
+/*
  * get all stored payment info for a user
  * input: user (User object)
  * output: PaymentMethod object array
@@ -249,40 +454,3 @@ function getPaymentsbyEmail(userEmail) {}
  */
 function addPayment(payment) {}
 
-/*
- * get all tickets of a particular movie sold
- * input: movie (Movie object)
- * output: integer
- */
-function getTicketsSold(movie) {}
-
-/*
- * get all tickets of a particular movie sold
- * input: movieID (integer)
- * output: integer
- */
-function getTicketsSoldByID(movieID) {}
-
-/*
- * delete movie from database
- * input: movie (Movie object)
- * output: none
- * side effect: movie is removed from database
- */
-function removeMovie(movie) {}
-
-/*
- * delete movie from database
- * input: movieID (integer)
- * output: none
- * side effect: movie is removed from database
- */
-function removeMovieByID(movieID) {}
-
-/*
- * add movie to database
- * input: movie (Movie object)
- * output: none
- * side effect: movie is added to database
- */
-function addMovie(movie) {}
