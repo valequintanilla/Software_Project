@@ -1,5 +1,6 @@
 import {useRef, useState, useEffect} from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import UserHome from './UserHome';
 
 //import './index.css';
 
@@ -38,48 +39,50 @@ const Login = () => {
         <>
             {success ? (
                         <section>
-                            <h1>You are logged in!</h1>
-                            <br/>
-                            
-                            
+                            <div>
+                                <UserHome/>
+                            </div>
                         </section>
                     ) : (
                 <section>
-                    <p ref={errRef} className={errMsg ? "errmsg": /*error message display*/
-                    "offscreen"}
-                    aria-live= "assertive">{errMsg}
-                    </p>
-                    <h1>Sign In</h1>
-                    <form onSubmit = {handleSubmit}>
-                    <label htmlFor="username">Email:</label>
-                        <input 
-                        type = "text" 
-                        id="email"
-                        ref={userRef}
-                        autoComplete="off" /*wont suggest previous inputs*/
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        required
-                        />
-                
-                        <label htmlFor="password">Password:</label>
-                        <input 
-                        type = "password"  /*gives dots insted of text when typing in password*/
-                        id="password"
-                        ref={userRef}
-                        onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
-                        required
-                        />
-                        <button>Sign In</button>
+                    <div>
+                        <p ref={errRef} className={errMsg ? "errmsg": /*error message display*/
+                        "offscreen"}
+                        aria-live= "assertive">{errMsg}
+                        </p>
+                        <h1>Sign In</h1>
+                        <form onSubmit = {handleSubmit}>
+                        <label htmlFor="username">Email:</label>
+                            <input 
+                            type = "text" 
+                            id="email"
+                            ref={userRef}
+                            autoComplete="off" /*wont suggest previous inputs*/
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                            />
+                    
+                            <label htmlFor="password">Password:</label>
+                            <input 
+                            type = "password"  /*gives dots insted of text when typing in password*/
+                            id="password"
+                            ref={userRef}
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                            />
+                            <button>Sign In</button>
 
-                    </form>
-                    <p>
-                        Need an Acoount?<br/>
-                        <span className="line">
-                            <Link to ='/Register'>Create Account</Link>
-                        </span>
-                    </p>
+                        </form>
+                        <p>
+                            Need an Acoount?<br/>
+                            <span className="line">
+                                <Link to ='/Register'>Create Account</Link>
+                            </span>
+                        </p>
+                    </div>
+                    
                 </section>
             )}
         </>

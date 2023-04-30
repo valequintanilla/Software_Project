@@ -44,34 +44,35 @@ const AdminLogin = () => {
                         </section>
                     ) : (
                 <section>
-                    <p ref={errRef} className={errMsg ? "errmsg": /*error message display*/
-                    "offscreen"}
-                    aria-live= "assertive">{errMsg}
-                    </p>
-                    <h1>Admin Login</h1>
-                    <form onSubmit = {handleSubmit}>
-                        <label htmlFor="username">Email:</label>
-                        <input 
-                        type = "text" 
-                        id="email"
-                        ref={userRef}
-                        autoComplete="off" /*wont suggest previous inputs*/
-                        onChange={(e) => setEmail(e.target.value)}
-                        value={email}
-                        required
-                        />
-                        <label htmlFor="password">Password:</label>
-                        <input 
-                        type = "password"  /*gives dots insted of text when typing in password*/
-                        id="password"
-                        ref={userRef}
-                        onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
-                        required
-                        />
-                        <button>Sign In</button>
-
-                    </form>
+                    <div>
+                        <p ref={errRef} className={errMsg ? "errmsg": /*error message display*/
+                        "offscreen"}
+                        aria-live= "assertive">{errMsg}
+                        </p>
+                        <h1>Admin Login</h1>
+                        <form onSubmit = {handleSubmit}>
+                            <label htmlFor="username">Email:</label>
+                            <input 
+                            type = "text" 
+                            id="email"
+                            ref={userRef}
+                            autoComplete="off" /*wont suggest previous inputs*/
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                            />
+                            <label htmlFor="password">Password:</label>
+                            <input 
+                            type = "password"  /*gives dots insted of text when typing in password*/
+                            id="password"
+                            ref={userRef}
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                            />
+                            <button>Sign In</button>
+                        </form>
+                    </div>  
                 </section>
             )}
         </>
