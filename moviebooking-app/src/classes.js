@@ -8,12 +8,14 @@ const UserType = {
 }
 
 // The PaymentType "enumeration" is used to tell what payment type some data is representing
+// UNUSED: just use strings
+/*
 const PaymentType = {
   Card: Symbol("card"),
   PayPal: Symbol("paypal"),
   ApplePay: Symbol("applepay"),
   GooglePay: Symbol("googlepay")
-}
+}*/
 
 // A user object is used to represent a user of the system, either an admin or 
 class User {

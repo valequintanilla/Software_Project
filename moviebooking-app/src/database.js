@@ -495,14 +495,29 @@ function getTicketsSoldByID(movieID) {
  * input: user (User object)
  * output: PaymentMethod object array
  */
-function getPayments(user) {}
+function getPayments(user) {
+    return getPaymentsByEmail(user.email);
+}
 
 /*
  * get all stored payment info for a user
  * input: userEmail (string)
  * output: PaymentMethod object array
  */
-function getPaymentsbyEmail(userEmail) {}
+function getPaymentsByEmail(userEmail) {
+    records = parseFile(d_payments);
+    payments = []
+    for (record of records) {
+        if (record[0] == userEmail) {
+            payments.push(new PaymentMethod(
+                record[0],           // user email
+                parseInt(record[1]), // id (for user)
+                record[2],           // payment type
+                record[3]            // payment information
+            ));
+        }
+    }
+}
 
 /*
  * add payment method to database
@@ -510,5 +525,14 @@ function getPaymentsbyEmail(userEmail) {}
  * output: none
  * side effect: payment information added to database
  */
-function addPayment(payment) {}
+function addPayment(payment) {
+    records = parseFile(d_payments);
+    records.push([
+        payment.user,
+        payment.id,
+        payment.payment_type,
+        payment.payment_info
+    ]);
+    writeFile(d_payments, records);
+}
 
