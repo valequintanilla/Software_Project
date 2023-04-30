@@ -7,25 +7,55 @@ import AddShoppingCart from '../BrowseMovie/AddShoppingCart';
 import RemoveShoppingCart from '../BrowseMovie/RemoveShoppingCart';
 import {Link} from 'react-router-dom';
 const MovieCatalog = () => {
-	const [movies, setMovies] = useState([]);
+	const [movies, setMovies] = useState([{
+		Title: "Star Wars: Episode IX - The Rise of Skywalker",
+		Year: "2019",
+		imdbID: "tt2527338",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SX300.jpg"
+	},{
+		Title: "Avengers: Endgame",
+		Year: "2019",
+		imdbID: "tt4154796",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg"
+	},{
+		Title: "Cruella",
+		Year: "2021",
+		imdbID: "tt3228774",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BOWI5YTUxOWEtZmRiZS00ZmQxLWE2NzctYTRiODA2NzE1ZjczXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg"
+	},{
+		Title: "The Super Mario Bros. Movie",
+		Year: "2023",
+		imdbID: "tt6718170",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BOTJhNzlmNzctNTU5Yy00N2YwLThhMjQtZDM0YjEzN2Y0ZjNhXkEyXkFqcGdeQXVyMTEwMTQ4MzU5._V1_SX300.jpg"
+	}
+	]);
 	const [shoppingCart, setCart] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
 
-	const getMovieRequest = async (searchValue) => {
-    //api url we can change to diff 
-		const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=263d22d8`;
+	// function getCurrentCatalog () {
+	// 	
+	// };
 
-		const response = await fetch(url);
-		const responseJson = await response.json();
-        //sets movie to search value but we can change this to set movies to what ever we want or have on the database.
-		if (responseJson.Search) {
-			setMovies(responseJson.Search);
-		}
-	};
 
-	useEffect(() => {
-		getMovieRequest(searchValue);
-	}, [searchValue]);
+	// const getMovieRequest = async (searchValue) => {
+    // //api url we can change to diff 
+	// 	const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=263d22d8`;
+
+	// 	const response = await fetch(url);
+	// 	const responseJson = await response.json();
+    //     //sets movie to search value but we can change this to set movies to what ever we want or have on the database.
+	// 	if (responseJson.Search) {
+	// 		setMovies(responseJson.Search);
+	// 	}
+	// };
+
+	// useEffect(() => {
+	// 	getCurrentCatalog(searchValue);
+	// }, [searchValue]);
 
     //store in local storage
 	useEffect(() => {
@@ -72,6 +102,7 @@ const MovieCatalog = () => {
 			<div className='row d-flex align-items-center mt-4 mb-4'>
 				<MovieListHeading heading='Browse Movies:' />
 				<SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+				
 			</div>
 			<div className='row'>
 				<MovieList
