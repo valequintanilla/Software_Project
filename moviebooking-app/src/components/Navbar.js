@@ -4,7 +4,10 @@ import '../components/Navbar.css'
 function Navbar() {
 
   return (
-    <div>
+    <div
+    style={{
+      background: 'darkorange'  
+    }}>
 
         <Link to = "/">
           <button>Home</button>

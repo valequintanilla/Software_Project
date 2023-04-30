@@ -6,10 +6,12 @@ import Login from './Pages/Login';
 import Navbar from './components/Navbar';
 import Home from './Pages/Home';
 import AdminLogin from './Pages/AdminLogin';
-import MovieCatalog from './Pages/MovieCatalog';
-import UpcomingMovie from './Pages/UpcomingMovie';
 import SelectMovie from './Pages/SelectMovie';
 import UserHome from './Pages/UserHome';
+import BrowseMovies from './Pages/BrowseMovie/MovieCatalog';
+import UpcomingMovies from './Pages/UpcomingMovie';
+import Payment from './Pages/Payment';
+
 function App() {
 
   return (
@@ -21,10 +23,11 @@ function App() {
           <Route path = "/Register" element={<Register/>}/>
           <Route path = "/Login" element={<Login/>}/>
           <Route path = "/AdminLogin" element = {<AdminLogin/>} />
-          <Route path = '/Catalog' element = {<MovieCatalog/>}/>
-          <Route path = '/Upcoming' element= {<UpcomingMovie/>}/>
           <Route path = '/Selected' element = {<SelectMovie/>}/>
           <Route path = '/Userhome' element = {<UserHome/>}/>
+          <Route path = '/browsemovies' element = {<BrowseMovies/>}/>
+          <Route path = '/upcomingmovies' element = {<UpcomingMovies/>}/>
+          <Route path = '/payment' element = {<Payment/>}/>
         </Routes>
         
       </div>
