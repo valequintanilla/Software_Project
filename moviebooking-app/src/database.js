@@ -82,8 +82,21 @@ function getNextReviewID(movieID) {
     return i + 1;
 }
 
-// TODO (skipped)
-function getNextPaymentID(userEmail) {}
+/*
+ * get the next available payment id for the given user
+ * input: user email
+ * output: id (integer) which is not in use for a review of movie
+ */
+function getNextPaymentID(userEmail) {
+    payments = getPaymentsByEmail(userEmail);
+    i = 1;
+    // get i as the largest value of current review ids
+    for (payment of payments) {
+        i = payment.id > i ? payment.id : i;
+    }
+    // then i + 1 must be unused
+    return i + 1;
+}
 
 /*
  * get the user with the certain email from the database
