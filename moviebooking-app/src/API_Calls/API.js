@@ -12,7 +12,7 @@ const authourizeUser = (email) => {
     })
 }
 
-const registerUser = (email, password, first_name, last_name, address, phone) => {
+const registerUser = ({user}) => {
     const status = ''
     axios.post('http://localhost:3000/login', {email, password, first_name, last_name, address, phone})
     .then((res) => {

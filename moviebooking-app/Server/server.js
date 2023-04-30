@@ -6,15 +6,13 @@ Server API for making function calls to the database via local server
 require('../src/classes')
 const express = require('express')
 const cors = require('cors')
-const { PaymentMethod } = require('../src/classes')
+const { PaymentMethod, User } = require('../src/classes')
 
 const app = express()
 app.use(cors())
 
 const PORT = '3000'
-const CLIENTID = ''
-const CLIENTSECRET = ''
-
+ 
 //Send login credentials to authorization function
 app.get('/login', (req,res) => {
     const email = req.body.email
@@ -29,10 +27,10 @@ app.get('/login', (req,res) => {
 });
 
 app.post('/register', (req, res) => {
-    const password = req.body.pwd
-    const email = req.body.email
+    const user = new User()
+    new_user = req.data.user
     // send all user info to function call that adds users to the database
-    addUser(password,email)
+    addUser(new_user)
     .then(() => {
         res.json({
             status: 'success',
