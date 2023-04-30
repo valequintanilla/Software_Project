@@ -25,13 +25,15 @@ const Login = () => {
     useEffect(() =>{
         setErrMsg('');
     }, [email, pwd])
+
+    
     //Handle submit function
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        /*Next four lines are just to make sure code work it is still not linked to the back end*/
+        
         console.log(email, pwd);
 
-        //calling api function:
+        //CALLING API FUNCTION:
         authourizeUser(email);
         
         setEmail(''); //once submitted it will clear the username and pwd components
