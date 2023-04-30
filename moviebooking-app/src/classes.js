@@ -70,8 +70,10 @@ class PaymentMethod {
 }
 
 class Ticket {
-  constructor(showing, seat, owner) {
-    this.showing = showing;
+  constructor(movie, theater, time, seat, owner) {
+    this.movie = movie;
+    this.theater = theater;
+    this.time = time;
     this.seat = seat;
     this.owner = owner;
   }
