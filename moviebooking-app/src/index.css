@@ -39,9 +39,8 @@ img.logo{
 
 
 section {
+    aspect-ratio: 1/1;
     width: 100%;
-    max-width: 500px;
-    min-height: 550px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
