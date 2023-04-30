@@ -2,7 +2,7 @@ import React from 'react';
 
 const MovieList = (props) => {
 	const CartComponent = props.CartComponent;
-
+	
 	return (
 		<>
 			{props.movies.map((movie, index) => (
@@ -14,6 +14,7 @@ const MovieList = (props) => {
 					>
 						<CartComponent />
 					</div>
+					
 				</div>
 			))}
 		</>

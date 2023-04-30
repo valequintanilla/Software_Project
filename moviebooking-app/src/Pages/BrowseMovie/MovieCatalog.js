@@ -5,6 +5,7 @@ import MovieListHeading from './MovieListHeading';
 import SearchBox from './SearchBox';
 import AddShoppingCart from '../BrowseMovie/AddShoppingCart';
 import RemoveShoppingCart from '../BrowseMovie/RemoveShoppingCart';
+import SelectedMovie from './SelectMovie';
 import {Link} from 'react-router-dom';
 const MovieCatalog = () => {
 	const [movies, setMovies] = useState([{
@@ -36,9 +37,7 @@ const MovieCatalog = () => {
 	const [shoppingCart, setCart] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
 
-	// function getCurrentCatalog () {
-	// 	
-	// };
+	
 
 
 	// const getMovieRequest = async (searchValue) => {
@@ -86,7 +85,9 @@ const MovieCatalog = () => {
 		setCart(newCartList);
 		saveToLocalStorage(newCartList);
 	};
+	const showMovieInfo = (movie) => {
 
+	}
 	return (
 		<div className='container-fluid movie-app'
         style={{
@@ -104,11 +105,13 @@ const MovieCatalog = () => {
 				<SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
 				
 			</div>
+			<button><Link to = '/Userhome' >Go back to home</Link></button>
 			<div className='row'>
 				<MovieList
 					movies={movies}
 					handleShoppingCartClick={addMovieCart}
 					CartComponent={AddShoppingCart}
+					movieSelected = {SelectedMovie}
 				/>
 			</div>
 			<div className='row d-flex align-items-center mt-4 mb-4'>
