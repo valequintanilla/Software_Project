@@ -22,4 +22,4 @@ const registerUser = (email, password) => {
     })
 }
 
-
+export {authourizeUser , registerUser} ;

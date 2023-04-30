@@ -3,6 +3,7 @@ import {faCheck, faTimes, faInfoCircle} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import axios from "./api/axios"
 import {Link} from 'react-router-dom';
+import {registerUser} from '../API_Calls/API.js';
 
 //import './index.css';
 
@@ -127,24 +128,23 @@ const REGISTER_URL = '/Register';
             setErrMsg("Invalid Entry");
             return;
         }
-        /*This is where i will need the back end to save data to api
-        but for now ill just print the username password and if registration was succesful.
-        console.log(user,pwd);
-        setSuccess(true);*/
+        
         //Back end : try and ctach block
         try{
-            const response = await axios.post(REGISTER_URL
-                , JSON.stringify({email, pwd}), 
-                {
-                headers : {'Content-Type': 'application/json'},
-                withcredentials: true
-                }
-            );
-            console.log(response.data);
-            console.log(response.accessToken);
-            console.log(JSON.stringify(response))
-            setSuccess(true);
-            //clear input fileds
+            registerUser(email, pwd);
+            // const response = await axios.post(REGISTER_URL
+            //     , JSON.stringify({email, pwd}), 
+            //     {
+            //     headers : {'Content-Type': 'application/json'},
+            //     withcredentials: true
+            //     }
+            // );
+            // console.log(response.data);
+            // console.log(response.accessToken);
+            // console.log(JSON.stringify(response))
+            // setSuccess(true);
+            // //clear input fileds
+
         }catch(err){
             if(!err?.response){
                 setErrMsg('No Server Response');
