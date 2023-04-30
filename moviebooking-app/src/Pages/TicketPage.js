@@ -2,11 +2,12 @@ import React from 'react';
 import QRCode from 'react-qr-code';
 import './TicketPage.css';
 
-const TicketPage = ({ movieName, movieLocation, timeOfShowing, onHomepageClick }) => {
+const TicketPage = ({ movieName, movieLocation, timeOfShowing, seatNumber, onHomepageClick }) => {
   const ticketData = {
     movieName: movieName,
     movieLocation: movieLocation,
     timeOfShowing: timeOfShowing,
+    seatNumber: seatNumber,
   };
 
   const ticketString = JSON.stringify(ticketData);
@@ -34,6 +35,7 @@ const TicketPage = ({ movieName, movieLocation, timeOfShowing, onHomepageClick }
           <p>Movie Location: {movieLocation}</p>
           <p>Date of Showing: {formattedDate}</p>
           <p>Time of Showing: {formattedTime}</p>
+          <p>Seat Number: {seatNumber}</p>
         </div>
         <div className="barcode">
           <QRCode value={ticketString} />
