@@ -14,7 +14,7 @@ const authourizeUser = (email) => {
 
 const registerUser = ({user}) => {
     const status = ''
-    axios.post('http://localhost:3000/login', {email, password, first_name, last_name, address, phone})
+    axios.post('http://localhost:3000/login', {user})
     .then((res) => {
         status = res.data.status
         return status
