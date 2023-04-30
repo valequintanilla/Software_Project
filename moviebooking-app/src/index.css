@@ -124,3 +124,15 @@ button {
 .line {
     display: inline-block;
 }
+
+img[id = "user-home"]{
+    aspect-ratio: 1 / 1;
+    width: 30%;
+    flex-grow: 1;
+}
+button[id = "user-home"]{
+    display: flex;
+    background-color: white;
+    gap: .5rem;
+    
+}
