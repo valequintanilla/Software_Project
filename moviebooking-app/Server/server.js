@@ -3,7 +3,7 @@ Server API for making function calls to the database via local server
 ********Need to install cors, express, and possibly babel*********
 *******Need to add error catches after .then promise are added*******
 */
-require('./src/classes')
+require('../src/classes')
 const express = require('express')
 const cors = require('cors')
 
