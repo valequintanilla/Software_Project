@@ -6,6 +6,7 @@ Server API for making function calls to the database via local server
 require('../src/classes')
 const express = require('express')
 const cors = require('cors')
+const { PaymentMethod } = require('../src/classes')
 
 const app = express()
 app.use(cors())
@@ -58,10 +59,40 @@ app.get('/browse', (req,res) => {
     })
 });
 
+//book a ticket
+app.post('/book', (req, res) => {
+    const ticket = new Ticket(req.data.showing, req.data.seat, req.data.owner)
+    const status = ''
+    bookTicket(ticket)
+    .then(
+        res.json({
+            status: 'succes',
+        })
+    ).catch((err) => {
+        console.log(err)
+    })
+});
+
+//puchase a ticket
+app.post('/pay', (req, res) => {
+    const payment = new PaymentMethod(req.data.user, req.data.id, req.data.payment_type, req.data.paymen_info)
+    const status = ''
+
+    makePayment(payment)
+    .then(
+        res.json({
+            status: 'success'
+        })
+    ).catch((err) => {
+        console.log(err)
+    })
+
+});
 
 //leave review for movie
 app.post('/review', (req,res) => {
-    const review = req.body.review
+    const review = new Review()
+    review = req.data.review
      
     //add review to database via function call
     addReview(review)
@@ -79,6 +110,16 @@ app.post('/review', (req,res) => {
 //admin delete option
 app.delete('/delete', (req, res) => {
     //never used delete before, need to look into use cases to set up properly 
+    const id = req.data.id
+
+    removeMovie(id)
+    .then(
+        res.json({
+            status: 'success',
+        })
+    ).catch((err) => {
+        console.log(err)
+    })
 });
 
 //Get current status of all currently showing movies
@@ -86,7 +127,7 @@ app.get('/status', (req, res) => {
     //need to see how they will id the movie
     const id = req.moviename
 
-    getMovieInfo()
+    getMovieInfo(id)
     .then((data) => {
         res.json({
             //Need data format for movies stoored in DB
@@ -96,6 +137,24 @@ app.get('/status', (req, res) => {
             console.log(err)
         })  
     })
+});
+
+//add Movie Showing
+app.post('/addMovie', (req,res) => {
+    const movie = new Movie()
+    moview = req.data.movie
+     
+    //add review to database via function call
+    addMovie(movie)
+    .then(
+        res.json({
+            status: 'success',
+        })
+    ).catch((err) => {
+        console.log(err)
+    })
+
+    //not sure if a res is needed here
 });
 
 app.listen(PORT, () => {
