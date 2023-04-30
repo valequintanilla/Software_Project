@@ -1,0 +1,27 @@
+.ticket-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .ticket {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .ticket-details {
+    margin-bottom: 20px;
+  }
+  
+  .barcode {
+    margin-bottom: 20px;
+  }
+  
