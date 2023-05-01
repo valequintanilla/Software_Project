@@ -8,7 +8,7 @@ import Home from './Pages/Home';
 import AdminLogin from './Pages/AdminLogin';
 
 import UserHome from './Pages/UserHome';
-import BrowseMovies from './Pages/BrowseMovie/MovieCatalog';
+import BrowseMovies from './Pages/MovieCatalog';
 import UpcomingMovies from './Pages/BrowseMovie/UpcomingMovie';
 import Payment from './Pages/Payment';
 import AdminHome from './Pages/AdminHomepage';
@@ -27,7 +27,7 @@ function App() {
           <Route path = "/Login" element={<Login/>}/>
           <Route path = "/AdminLogin" element = {<AdminLogin/>} />
           <Route path = '/Userhome' element = {<UserHome/>}/>
-          <Route path = '/browsemovies' element = {<BrowseMovies/>}/>
+          <Route path = '/browse' element = {<BrowseMovies/>}/>
           <Route path = '/upcomingmovies' element = {<UpcomingMovies/>}/>
           <Route path = '/payment' element = {<Payment/>}/>
           <Route path = '/adminhome' element = {<AdminHome/>}/>
