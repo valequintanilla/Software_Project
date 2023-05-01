@@ -12,6 +12,8 @@ import BrowseMovies from './Pages/BrowseMovie/MovieCatalog';
 import UpcomingMovies from './Pages/BrowseMovie/UpcomingMovie';
 import Payment from './Pages/Payment';
 import AdminHome from './Pages/AdminHomepage';
+import CurrentSatus from './Pages/CurrentStatus.js';
+import ManageShow from './Pages/ManageShow.js';
 
 function App() {
 
@@ -29,6 +31,8 @@ function App() {
           <Route path = '/upcomingmovies' element = {<UpcomingMovies/>}/>
           <Route path = '/payment' element = {<Payment/>}/>
           <Route path = '/adminhome' element = {<AdminHome/>}/>
+          <Route path = '//current-status' element = {<CurrentSatus/>}/>
+          <Route path = '/manage-show' element = {<ManageShow/>}/>
         </Routes>
         
       </div>
