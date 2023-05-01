@@ -132,7 +132,7 @@ const movieInfo =(id) =>{
     axios.get('http://localhost:3000/movieInfo')
     .then((res) => {
         movie = res.movie
-        return review
+        return movie
     }).catch((err) => {
         console.log(err)
     })
