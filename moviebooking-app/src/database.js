@@ -484,7 +484,8 @@ function getTicketsByEmail(userEmail) {
  * output: integer
  */
 function getTicketsSold(movie) {
-    return getTicketsSoldByID(movie.id);
+    const sold = getTicketsSoldByID(movie.id);
+    return sold
 }
 
 /*

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Movie, PaymentMethod, Ticket, User} from "../classes";
 
+
 const authourizeUser = (email) => {
     const password = ' '
     axios.get('http://localhost:3000/login', {email})
@@ -12,11 +13,22 @@ const authourizeUser = (email) => {
     })
 }
 
-const registerUser = ({user}) => {
-    const status = ''
-    axios.post('http://localhost:3000/login', {user})
+const authourizeAdmin = (email) => {
+    const password = ' '
+    axios.get('http://localhost:3000/loginAdmin', {email})
     .then((res) => {
-        status = res.data.status
+        password = res.password
+        return password
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+
+const registerUser = ({user, password}) => {
+    const status = ''
+    axios.post('http://localhost:3000/login', {user, password})
+    .then((res) => {
+        status = res.status
         return status
     }).catch((err) => {
         console.log(err)
@@ -25,26 +37,51 @@ const registerUser = ({user}) => {
 
 //title, year, image, id 
 const getMovies = () =>{
-    const movie = new Movie()
+    const movies = new Movie()
 
     axios.get('http://localhost:3000/browse')
     .then((res) => {
-        movie.title = res.data.title
-        movie.release_date = res.data.year
-        movie.poster_url = res.data.image
-        movie.id = res.data.id
-        return movie
+        movies = res.movies
+        return movies
     }).catch((err) => {
         console.log(err)
     })
 
 }
 
+//get current movies
+const getCurrentMovies = () =>{
+    const movies = new Movie()
+
+    axios.get('http://localhost:3000/movieCurrent')
+    .then((res) => {
+        movies = res.current
+        return movies
+    }).catch((err) => {
+        console.log(err)
+    })
+
+}
+
+//get upcoming movies 
+const getUpcomingMovies = () =>{
+    const movies = new Movie()
+
+    axios.get('http://localhost:3000/movieUpcoming')
+    .then((res) => {
+        movies = res.upcoming
+        return movies
+    }).catch((err) => {
+        console.log(err)
+    })
+}
+
+
 const bookTicket = (ticket) =>{
     const status = ''
     axios.post('http://localhost:3000/book', {ticket})
     .then((res) =>{
-        status = res.data.status
+        status = res.status
         return status
     }).catch((err) => {
         console.log(err)
@@ -81,15 +118,24 @@ const viewReviews = () =>{
 
     axios.get('http://localhost:3000/reviews')
     .then((res) => {
-        review.id = res.data.id
-        review.movie = res.data.movie
-        review.author = res.data.author
-        review.body = res.data.body
+        review = res.reviews
         return review
     }).catch((err) => {
         console.log(err)
     })
 
+}
+
+
+const movieInfo =(id) =>{
+    const movie = new Movie
+    axios.get('http://localhost:3000/movieInfo')
+    .then((res) => {
+        movie = res.movie
+        return review
+    }).catch((err) => {
+        console.log(err)
+    })
 }
 
 //get tickets sold
@@ -98,12 +144,37 @@ const ticketsSold = (id) =>{
 
     axios.get('http://localhost:3000/status', {id})
     .then((res) => {
-        num_sold = res.data.ticketSold
+        num_sold = res.data.tickets_sold
         return num_sold
     }).catch((err) => {
         console.log(err)
     })
 
+}
+
+//get tickets sold
+const getTicketsByEmail = (email) =>{
+    const num_tickets = ''
+
+    axios.get('http://localhost:3000/ticketsEmail', {email})
+    .then((res) => {
+        num_tickets = res.data.tickets
+        return num_tickets
+    }).catch((err) => {
+        console.log(err)
+    })
+
+}
+const addTickets = (tickets) =>{
+    const status = ''
+ 
+    axios.post('http://localhost:3000/addTickets',{tickets})
+    .then((res) => {
+        status = res.data.status
+        return status
+    }).catch((err) => {
+        console.log(err)
+    })
 }
 
 const addMovie = (movie) =>{
@@ -118,13 +189,13 @@ const addMovie = (movie) =>{
     })
 }
 
-const deleteMOvie = (movie_id) =>{
+const deleteMovie = (movie_id) =>{
     const status = ''
 
     axios.delete('http://localhost:3000/deleteMovie', {data: {id: movie_id} })
     .then((res) => {
-        status = res.data.status
+        status = res.status
     })
 }
 
-export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMOvie, } ;
+export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMovie, } ;
