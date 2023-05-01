@@ -1,5 +1,7 @@
-import {useRef, useState, useEffect}  from 'react'
-import {Link} from 'react-router-dom'
+import {useRef, useState, useEffect}  from 'react';
+import {authourizeUser} from '../API_Calls/API.js';
+import {Link} from 'react-router-dom';
+import AdminHome from './AdminHomepage';
 
 const AdminLogin = () => {
     const userRef = useRef(); 
@@ -22,13 +24,29 @@ const AdminLogin = () => {
         setErrMsg('');
     }, [email, pwd])
     //Handle submit function
+    //Handle submit function
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        /*Next four lines are just to make sure code work it is still not linked to the back end*/
+        
         console.log(email, pwd);
-        setEmail(''); //once submitted it will clear the username and pwd components
-        setPwd('');
-        setSuccess(true);
+        
+        //Back end : try and ctach block
+        try{
+            //CALLING API FUNCTION:
+            authourizeUser(email);
+            setEmail(''); //once submitted it will clear the username and pwd components
+            setPwd('');
+            setSuccess(true);
+            
+
+        }catch(err){
+            if(!err?.response){
+                setErrMsg('No Server Response');
+            }else{
+                setErrMsg('Login Failed');
+            }
+            errRef.current.focus();
+        }
         
     }
 
@@ -36,11 +54,7 @@ const AdminLogin = () => {
         <>
             {success ? (
                         <section>
-                            <h1>You are logged in!</h1>
-                            <br/>
-                            <p>
-                                <Link to="/">Go to Home</Link>
-                            </p>
+                            <AdminHome/>
                         </section>
                     ) : (
                 <section>

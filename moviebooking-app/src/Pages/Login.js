@@ -32,13 +32,24 @@ const Login = () => {
         e.preventDefault();
         
         console.log(email, pwd);
-
-        //CALLING API FUNCTION:
-        authourizeUser(email);
         
-        setEmail(''); //once submitted it will clear the username and pwd components
-        setPwd('');
-        setSuccess(true);
+        //Back end : try and ctach block
+        try{
+            //CALLING API FUNCTION:
+            authourizeUser(email);
+            setEmail(''); //once submitted it will clear the username and pwd components
+            setPwd('');
+            setSuccess(true);
+            
+
+        }catch(err){
+            if(!err?.response){
+                setErrMsg('No Server Response');
+            }else{
+                setErrMsg('Login Failed');
+            }
+            errRef.current.focus();
+        }
         
     }
 

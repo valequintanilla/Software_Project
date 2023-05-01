@@ -1,6 +1,7 @@
 import {useRef, useState, useEffect} from "react";
 import {faCheck, faTimes, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import UserHome from "./UserHome.js";
 import axios from "./api/axios"
 import {Link} from 'react-router-dom';
 import {registerUser} from '../API_Calls/API.js';
@@ -132,18 +133,8 @@ const REGISTER_URL = '/Register';
         //Back end : try and ctach block
         try{
             registerUser(email, pwd);
-            // const response = await axios.post(REGISTER_URL
-            //     , JSON.stringify({email, pwd}), 
-            //     {
-            //     headers : {'Content-Type': 'application/json'},
-            //     withcredentials: true
-            //     }
-            // );
-            // console.log(response.data);
-            // console.log(response.accessToken);
-            // console.log(JSON.stringify(response))
-            // setSuccess(true);
-            // //clear input fileds
+            setSuccess(true);
+            
 
         }catch(err){
             if(!err?.response){
@@ -160,12 +151,11 @@ const REGISTER_URL = '/Register';
     return(
         <> 
             {success ?(
-                    <section>
-                        <h1>Success!</h1>
-                        <p>
-                           <Link to = '/Userhome'></Link>
-                        </p>
-                    </section>
+                <section>
+                    <div>
+                        <UserHome/>
+                    </div>
+                </section>
                 
                 ) : (
                 <section>

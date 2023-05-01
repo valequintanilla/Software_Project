@@ -83,7 +83,7 @@ class Ticket {
 
 module.exports = {
   UserType,
-  PaymentType,
+  //PaymentType,
   User,
   Movie,
   Theater,

@@ -5,6 +5,7 @@ import MovieListHeading from './MovieListHeading';
 import SearchBox from './SearchBox';
 import SelectedMovie from './SelectMovie';
 import {Link} from 'react-router-dom';
+import Popup from 'reactjs-popup';
 //Catalog of the upcoming movies 
 const UpcomingMovie = () =>{
     const [movies, setMovies] = useState([{
@@ -46,15 +47,11 @@ const UpcomingMovie = () =>{
 			setCart(movieCart);
 		}
 	}, []);
-
-	const saveToLocalStorage = (items) => {
-		localStorage.setItem('react-movie-app-cart', JSON.stringify(items));
-	};
-
-    const showMovieInfo = (movie) => {
-
+	const showMovieInfo = (movie) => {
+		
 	}
 
+	
     return(
         <div className='container-fluid movie-app'
         style={{
@@ -78,7 +75,6 @@ const UpcomingMovie = () =>{
 					movies={movies}
 					handleShoppingCartClick={showMovieInfo}
 					CartComponent={SelectedMovie}
-					
 				/>
 			</div>
 			
