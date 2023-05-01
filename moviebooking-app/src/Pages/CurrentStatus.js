@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { getCurrentMovies, ticketsSold } from '../API_Calls/API';
 const Movie = ({ image, ticketsSold }) => {
   return (
     <div style={{ marginRight: '10px' }}>
@@ -18,9 +18,21 @@ const Movie = ({ image, ticketsSold }) => {
   );
 };
 
-const CurrentStatus = ({ movies = [] }) => {
-  const totalTicketsSold = movies.reduce((sum, movie) => sum + movie.ticketsSold, 0);
+const CurrentStatus = () => {
+  const [movies, setMovies] = useState([]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedMovies = await getCurrentMovies();
+      for (let movie of fetchedMovies) {
+        movie.ticketsSold = await ticketsSold(movie.id);
+      }
+      setMovies(fetchedMovies);
+    };
+
+    fetchData();
+  }, []);
+  const totalTicketsSold = movies.reduce((sum, movie) => sum + movie.ticketsSold, 0);
   return (
     <div
       style={{
@@ -43,5 +55,7 @@ const CurrentStatus = ({ movies = [] }) => {
   );
 };
 
+
 export default CurrentStatus;
+
 
