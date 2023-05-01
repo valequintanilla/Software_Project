@@ -224,7 +224,7 @@ function loginAdmin(email, password) {
  * output: Movie object array
  */
 // TODO (skipped)
-function getBestSellers(num) {}
+// function getBestSellers(num) {}
 
 /*
  * get all current & upcoming movies
@@ -548,4 +548,38 @@ function addPayment(payment) {
         payment.payment_info
     ]);
     writeFile(d_payments, records);
+}
+
+module.exports = {
+    parseFile,
+    writeFile,
+    getNextMovieID,
+    getNextReviewID,
+    getNextPaymentID,
+    getUserFromEmail,
+    getMovieFromID,
+    registerCustomer,
+    loginCustomer,
+    loginAdmin,
+    getFullCatalog,
+    getCurrentCatalog,
+    getUpcomingCatalog,
+    searchMovies,
+    removeMovie,
+    removeMovieByID,
+    addMovie,
+    getReviews,
+    getReviewsByID,
+    addReview,
+    getShowings,
+    getShowingsByID,
+    addTicket,
+    addTickets,
+    getTickets,
+    getTicketsByEmail,
+    getTicketsSold,
+    getTicketsSoldByID,
+    getPayments,
+    getPaymentsByEmail,
+    addPayment
 }
