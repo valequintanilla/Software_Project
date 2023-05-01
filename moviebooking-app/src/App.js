@@ -23,12 +23,12 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path = "/" element={<Home/>} exact/>
-          <Route path = "/Register" element={<Register/>}/>
-          <Route path = "/Login" element={<Login/>}/>
-          <Route path = "/AdminLogin" element = {<AdminLogin/>} />
+          <Route path = "/register" element={<Register/>}/>
+          <Route path = "/login" element={<Login/>}/>
+          <Route path = "/loginAdmin" element = {<AdminLogin/>} />
           <Route path = '/Userhome' element = {<UserHome/>}/>
           <Route path = '/browse' element = {<BrowseMovies/>}/>
-          <Route path = '/upcomingmovies' element = {<UpcomingMovies/>}/>
+          <Route path = '/movieUpcoming' element = {<UpcomingMovies/>}/>
           <Route path = '/payment' element = {<Payment/>}/>
           <Route path = '/adminhome' element = {<AdminHome/>}/>
           <Route path = '//current-status' element = {<CurrentSatus/>}/>

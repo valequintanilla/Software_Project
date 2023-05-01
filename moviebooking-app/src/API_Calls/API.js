@@ -26,7 +26,7 @@ const authourizeAdmin = (email) => {
 
 const registerUser = ({user, password}) => {
     const status = ''
-    axios.post('http://localhost:3000/login', {user, password})
+    axios.post('http://localhost:3000/login', {user, password}) //this might have to be changed to /register (look at App.js)
     .then((res) => {
         status = res.status
         return status
@@ -39,7 +39,7 @@ const registerUser = ({user, password}) => {
 const getMovies = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await axios.get('http://localhost:3000/browse');
+        const response = await axios.get('http://localhost:3000/browse'); //the page to browse movies and current movies is the same page(just one page) 
         const fetchedMovies = response.data.map((movieData) => {
           const movie = new Movie();
           movie.title = movieData.title;
@@ -61,7 +61,7 @@ const getCurrentMovies = () =>{
     const movies = new Movie()
     movies = []
 
-    axios.get('http://localhost:3000/movieCurrent')
+    axios.get('http://localhost:3000/movieCurrent') //same as browse?
     .then((res) => {
         movies = res.current
         return movies
@@ -88,7 +88,7 @@ const getUpcomingMovies = () =>{
 
 const bookTicket = (ticket) =>{
     const status = ''
-    axios.post('http://localhost:3000/book', {ticket})
+    axios.post('http://localhost:3000/book', {ticket}) //add route to app.js
     .then((res) =>{
         status = res.status
         return status
@@ -100,7 +100,7 @@ const bookTicket = (ticket) =>{
 const purchaseTicket = (payment) =>{
     const status = ''
  
-    axios.post('http://localhost:3000/pay',{payment})
+    axios.post('http://localhost:3000/pay',{payment}) //add route to routes in app.js
     .then((res) => {
         status = res.data.status
         return status
@@ -112,7 +112,7 @@ const purchaseTicket = (payment) =>{
 const writeReview = (review) =>{
     const status = ''
  
-    axios.post('http://localhost:3000/writeReview',{review})
+    axios.post('http://localhost:3000/writeReview',{review}) //add route to the routes in app.js
     .then((res) => {
         status = res.data.status
         return status
@@ -126,7 +126,7 @@ const viewReviews = () =>{
     const review = new review()
     review = []
 
-    axios.get('http://localhost:3000/reviews')
+    axios.get('http://localhost:3000/reviews') //add route to the routes in app.js
     .then((res) => {
         review = res.reviews
         return review
@@ -140,7 +140,7 @@ const viewReviews = () =>{
 const movieInfo =(id) =>{
     const movie = new Movie
 
-    axios.get('http://localhost:3000/movieInfo')
+    axios.get('http://localhost:3000/movieInfo') //add route to the routes in app.js
     .then((res) => {
         movie = res.movie
         return movie
@@ -153,7 +153,7 @@ const movieInfo =(id) =>{
 const ticketsSold = (id) =>{
     const num_sold = ''
 
-    axios.get('http://localhost:3000/status', {id})
+    axios.get('http://localhost:3000/status', {id}) //add route to the routes in app.js
     .then((res) => {
         num_sold = res.data.tickets_sold
         return num_sold
@@ -168,7 +168,7 @@ const getTicketsByEmail = (email) =>{
     const tickets = new Ticket()
     tickets = []
 
-    axios.get('http://localhost:3000/ticketsEmail', {email})
+    axios.get('http://localhost:3000/ticketsEmail', {email}) //add route to the routes in app.js
     .then((res) => {
         tickets = res.data.tickets
         return tickets
@@ -182,7 +182,7 @@ const getTicketsByEmail = (email) =>{
 const addTickets = (tickets) =>{
     const status = ''
  
-    axios.post('http://localhost:3000/addTickets',{tickets})
+    axios.post('http://localhost:3000/addTickets',{tickets}) //add route to the routes in app.js
     .then((res) => {
         status = res.data.status
         return status
@@ -194,7 +194,7 @@ const addTickets = (tickets) =>{
 const addMovie = (movie) =>{
     const status = ''
  
-    axios.post('http://localhost:3000/addMovie',{movie})
+    axios.post('http://localhost:3000/addMovie',{movie}) //add route to the routes in app.js
     .then((res) => {
         status = res.data.status
         return status
@@ -206,7 +206,7 @@ const addMovie = (movie) =>{
 const deleteMovie = (movie_id) =>{
     const status = ''
 
-    axios.delete('http://localhost:3000/deleteMovie', {data: {id: movie_id} })
+    axios.delete('http://localhost:3000/deleteMovie', {data: {id: movie_id} }) //add route to the routes in app.js
     .then((res) => {
         status = res.status
     })
