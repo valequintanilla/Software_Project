@@ -1,21 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const AdminHomepage = () => {
-  const history = useHistory();
-
-  const handleCurrentStatus = () => {
-    history.push('/current-status');
-  };
-
-  const handleManageShow = () => {
-    history.push('/manage-show');
-  };
-
   return (
     <div
       style={{
-        backgroundColor: 'red',
+        backgroundColor: 'black',
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
@@ -24,27 +14,29 @@ const AdminHomepage = () => {
       }}
     >
       <h1>Admin Homepage</h1>
-      <button
-        onClick={handleCurrentStatus}
+      <Link
+        to="/current-status"
         style={{
-          backgroundColor: 'white',
+          backgroundColor: 'darkorange',
           color: 'black',
           padding: '10px',
           marginBottom: '20px',
+          textDecoration: 'none',
         }}
       >
         Current Status
-      </button>
-      <button
-        onClick={handleManageShow}
+      </Link>
+      <Link
+        to="/manage-show"
         style={{
-          backgroundColor: 'white',
+          backgroundColor: 'darkorange',
           color: 'black',
           padding: '10px',
+          textDecoration: 'none',
         }}
       >
         Manage Show
-      </button>
+      </Link>
     </div>
   );
 };
