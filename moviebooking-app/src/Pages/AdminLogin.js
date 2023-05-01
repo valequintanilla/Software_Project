@@ -1,5 +1,5 @@
 import {useRef, useState, useEffect}  from 'react';
-import {authourizeUser} from '../API_Calls/API.js';
+import {authourizeAdmin} from '../API_Calls/API.js';
 import {Link} from 'react-router-dom';
 import AdminHome from './AdminHomepage';
 
@@ -33,7 +33,7 @@ const AdminLogin = () => {
         //Back end : try and ctach block
         try{
             //CALLING API FUNCTION:
-            authourizeUser(email);
+            authourizeAdmin(email);
             setEmail(''); //once submitted it will clear the username and pwd components
             setPwd('');
             setSuccess(true);
