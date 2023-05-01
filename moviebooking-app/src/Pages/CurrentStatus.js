@@ -18,7 +18,7 @@ const Movie = ({ image, ticketsSold }) => {
   );
 };
 
-const CurrentStatus = ({ movies }) => {
+const CurrentStatus = ({ movies = [] }) => {
   const totalTicketsSold = movies.reduce((sum, movie) => sum + movie.ticketsSold, 0);
 
   return (
@@ -44,3 +44,4 @@ const CurrentStatus = ({ movies }) => {
 };
 
 export default CurrentStatus;
+
