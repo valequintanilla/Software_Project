@@ -205,4 +205,4 @@ const deleteMovie = (movie_id) =>{
     })
 }
 
-export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMovie,authourizeAdmin } ;
+export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMovie,authourizeAdmin ,getCurrentMovies} ;
