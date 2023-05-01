@@ -11,6 +11,7 @@ import UserHome from './Pages/UserHome';
 import BrowseMovies from './Pages/BrowseMovie/MovieCatalog';
 import UpcomingMovies from './Pages/BrowseMovie/UpcomingMovie';
 import Payment from './Pages/Payment';
+import AdminHome from './Pages/AdminHomepage';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path = '/browsemovies' element = {<BrowseMovies/>}/>
           <Route path = '/upcomingmovies' element = {<UpcomingMovies/>}/>
           <Route path = '/payment' element = {<Payment/>}/>
+          <Route path = '/adminhome' element = {<AdminHome/>}/>
         </Routes>
         
       </div>

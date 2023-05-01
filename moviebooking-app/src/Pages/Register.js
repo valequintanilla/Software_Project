@@ -2,7 +2,6 @@ import {useRef, useState, useEffect} from "react";
 import {faCheck, faTimes, faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import UserHome from "./UserHome.js";
-import axios from "./api/axios"
 import {Link} from 'react-router-dom';
 import {registerUser} from '../API_Calls/API.js';
 
@@ -14,8 +13,7 @@ const ADDRESS_REGEX = /^[a-zA-z0-9. ]{1,30}$/
 const PHONE_REGEX = /^^\(\d{3}\)\d{3}-\d{4}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-//set const url
-const REGISTER_URL = '/Register';
+
  const Register = () => {
     const userRef = useRef(); //get users import
     const errRef = useRef(); //error input
