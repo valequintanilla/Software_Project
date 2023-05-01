@@ -73,8 +73,8 @@ const UpcomingMovie = () =>{
 			<div className='row'>
 				<MovieList
 					movies={movies}
-					handleShoppingCartClick={showMovieInfo}
-					CartComponent={SelectedMovie}
+					handleClick={showMovieInfo}
+					Component={SelectedMovie}
 				/>
 			</div>
 			

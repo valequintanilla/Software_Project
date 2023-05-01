@@ -15,8 +15,12 @@ const MovieCatalog = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			// const fetchedMovies = getCurrentMovies();
+			// setMovies(fetchedMovies);
 			const fetchedMovies = getCurrentMovies();
-			setMovies(fetchedMovies);
+			const response = await fetch(fetchedMovies);
+			const responseJson = await response.json();
+			setMovies(responseJson);
 		};
 		fetchData();
 		
