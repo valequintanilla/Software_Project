@@ -36,18 +36,25 @@ const registerUser = ({user, password}) => {
 }
 
 //title, year, image, id 
-const getMovies = () =>{
-    const movies = new Movie()
-
-    axios.get('http://localhost:3000/browse')
-    .then((res) => {
-        movies = res.movies
-        return movies
-    }).catch((err) => {
-        console.log(err)
-    })
-
-}
+const getMovies = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.get('http://localhost:3000/browse');
+        const fetchedMovies = response.data.map((movieData) => {
+          const movie = new Movie();
+          movie.title = movieData.title;
+          movie.release_date = movieData.year;
+          movie.poster_url = movieData.image;
+          movie.id = movieData.id;
+          return movie;
+        });
+        resolve(fetchedMovies);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
+  };
 
 //get current movies
 const getCurrentMovies = () =>{
