@@ -254,7 +254,7 @@ function getCurrentCatalog() {
     currentCatalog = [];
     currentDate = new Date();
     for (movie of fullCatalog) {
-        if (movie.releaseDate < currentDate) {
+        if (movie.release_date < currentDate) {
             currentCatalog.push(movie);
         }
     }
@@ -270,8 +270,8 @@ function getUpcomingCatalog() {
     upcomingCatalog = [];
     currentDate = new Date();
     for (movie of fullCatalog) {
-        if (currentDate < movie.releaseDate) {
-            currentCatalog.push(movie);
+        if (currentDate < movie.release_date) {
+            upcomingCatalog.push(movie);
         }
     }
     return upcomingCatalog;
@@ -549,4 +549,3 @@ function addPayment(payment) {
     ]);
     writeFile(d_payments, records);
 }
-
