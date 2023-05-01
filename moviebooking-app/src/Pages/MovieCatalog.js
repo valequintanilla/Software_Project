@@ -14,9 +14,12 @@ const MovieCatalog = () => {
 	const [searchValue, setSearchValue] = useState('');
 
 	useEffect(() => {
-		getCurrentMovies().then((fetchMovies) =>{
-			setMovies(fetchMovies);
-		});
+		const fetchData = async () => {
+			const fetchedMovies = getCurrentMovies();
+			setMovies(fetchedMovies);
+		};
+		fetchData();
+		
 	},[]);
 	
 
