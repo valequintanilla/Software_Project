@@ -38,7 +38,6 @@ const registerUser = ({user, password}) => {
 //title, year, image, id 
 const getMovies = () =>{
     const movies = new Movie()
-    movies = []
 
     axios.get('http://localhost:3000/browse')
     .then((res) => {
@@ -47,6 +46,7 @@ const getMovies = () =>{
     }).catch((err) => {
         console.log(err)
     })
+
 }
 
 //get current movies
@@ -205,4 +205,4 @@ const deleteMovie = (movie_id) =>{
     })
 }
 
-export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMovie, };
+export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMovie, } ;
