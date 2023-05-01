@@ -38,6 +38,11 @@ const MovieCatalog = () => {
 	const [shoppingCart, setCart] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
 
+	useEffect(() => {
+		getMovies().then((fetchMovies) =>{
+			setMovies(fetchMovies);
+		});
+	},[]);
 	
 
 
@@ -56,10 +61,10 @@ const MovieCatalog = () => {
 	// useEffect(() => {
 	// 	getCurrentCatalog(searchValue);
 	// }, [searchValue]);
-	useEffect(() => {
-		movies = getMovies();
-		setMovies([movies]);
-	},[]);
+	// useEffect(() => {
+	// 	getMovies();
+	// },[movies]);
+
     //store in local storage
 	useEffect(() => {
 		const movieCart = JSON.parse(
