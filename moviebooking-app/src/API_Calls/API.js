@@ -38,6 +38,7 @@ const registerUser = ({user, password}) => {
 //title, year, image, id 
 const getMovies = () =>{
     const movies = new Movie()
+    movies = []
 
     axios.get('http://localhost:3000/browse')
     .then((res) => {
@@ -46,12 +47,12 @@ const getMovies = () =>{
     }).catch((err) => {
         console.log(err)
     })
-
 }
 
 //get current movies
 const getCurrentMovies = () =>{
     const movies = new Movie()
+    movies = []
 
     axios.get('http://localhost:3000/movieCurrent')
     .then((res) => {
@@ -66,6 +67,7 @@ const getCurrentMovies = () =>{
 //get upcoming movies 
 const getUpcomingMovies = () =>{
     const movies = new Movie()
+    movies = []
 
     axios.get('http://localhost:3000/movieUpcoming')
     .then((res) => {
@@ -115,6 +117,7 @@ const writeReview = (review) =>{
 //view reviews
 const viewReviews = () =>{
     const review = new review()
+    review = []
 
     axios.get('http://localhost:3000/reviews')
     .then((res) => {
@@ -129,6 +132,7 @@ const viewReviews = () =>{
 
 const movieInfo =(id) =>{
     const movie = new Movie
+
     axios.get('http://localhost:3000/movieInfo')
     .then((res) => {
         movie = res.movie
@@ -154,17 +158,20 @@ const ticketsSold = (id) =>{
 
 //get tickets sold
 const getTicketsByEmail = (email) =>{
-    const num_tickets = ''
+    const tickets = new Ticket()
+    tickets = []
 
     axios.get('http://localhost:3000/ticketsEmail', {email})
     .then((res) => {
-        num_tickets = res.data.tickets
-        return num_tickets
+        tickets = res.data.tickets
+        return tickets
     }).catch((err) => {
         console.log(err)
     })
 
 }
+
+//add multiple tickets
 const addTickets = (tickets) =>{
     const status = ''
  
@@ -198,4 +205,4 @@ const deleteMovie = (movie_id) =>{
     })
 }
 
-export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMovie, } ;
+export {authourizeUser , registerUser, getMovies, bookTicket, purchaseTicket, writeReview, viewReviews, ticketsSold, addMovie, deleteMovie, };
