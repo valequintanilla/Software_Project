@@ -4,7 +4,7 @@ import { Movie, PaymentMethod, Ticket, User} from "../classes";
 
 const authourizeUser = (email) => {
     const password = ' '
-    axios.get('http://localhost:3000/login', {email})
+    axios.get('/Login', {email})
     .then((res) => {
         password = res.data.password
         return password
@@ -26,7 +26,7 @@ const authourizeAdmin = (email) => {
 
 const registerUser = ({user, password}) => {
     const status = ''
-    axios.post('http://localhost:3000/login', {user, password}) //this might have to be changed to /register (look at App.js)
+    axios.post('http://localhost:3000/register', {user, password}) //this might have to be changed to /register (look at App.js)
     .then((res) => {
         status = res.status
         return status
