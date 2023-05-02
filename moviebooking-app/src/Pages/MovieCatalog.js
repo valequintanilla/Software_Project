@@ -82,7 +82,17 @@ const MovieCatalog = () => {
 	// 	}
 	// };
 
+	const lookUpMovies = async (searchValue) => {
+    //api url we can change to diff 
+		// const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=263d22d8`;
 
+		// const response = await fetch(url);
+		// const responseJson = await response.json();
+        // //sets movie to search value but we can change this to set movies to what ever we want or have on the database.
+		// if (responseJson.Search) {
+		// 	setMovies(responseJson.Search);
+		// }
+	};
     //store in local storage
 	useEffect(() => {
 		const movieCart = JSON.parse(
