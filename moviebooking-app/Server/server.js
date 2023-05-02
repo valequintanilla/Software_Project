@@ -4,10 +4,46 @@ Server API for making function calls to the database via local server
 *******Need to add error catches after .then promise are added*******
 */
 require('../src/classes')
-require('../src/database')
+//require('./database')
 const express = require('express')
 const cors = require('cors')
 const { PaymentMethod, User, UserType, Movie } = require('../src/classes')
+
+// this is ugly and bad but requires no code change
+// TODO: make it not
+const {
+    parseFile,
+    writeFile,
+    getNextMovieID,
+    getNextReviewID,
+    getNextPaymentID,
+    getUserFromEmail,
+    getMovieFromID,
+    registerCustomer,
+    loginCustomer,
+    loginAdmin,
+    getFullCatalog,
+    getCurrentCatalog,
+    getUpcomingCatalog,
+    searchMovies,
+    removeMovie,
+    removeMovieByID,
+    addMovie,
+    getReviews,
+    getReviewsByID,
+    addReview,
+    getShowings,
+    getShowingsByID,
+    addTicket,
+    addTickets,
+    getTickets,
+    getTicketsByEmail,
+    getTicketsSold,
+    getTicketsSoldByID,
+    getPayments,
+    getPaymentsByEmail,
+    addPayment
+} = require('./database')
 
 const app = express()
 app.use(cors())
