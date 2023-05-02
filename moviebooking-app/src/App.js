@@ -14,6 +14,7 @@ import Payment from './Pages/Payment';
 import AdminHome from './Pages/AdminHomepage';
 import CurrentSatus from './Pages/CurrentStatus.js';
 import ManageShow from './Pages/ManageShow.js';
+import AddShow from './Pages/AddShow'
 
 function App() {
 
@@ -31,8 +32,9 @@ function App() {
           <Route path = '/movieUpcoming' element = {<UpcomingMovies/>}/>
           <Route path = '/payment' element = {<Payment/>}/>
           <Route path = '/adminhome' element = {<AdminHome/>}/>
-          <Route path = '//current-status' element = {<CurrentSatus/>}/>
+          <Route path = '/current-status' element = {<CurrentSatus/>}/>
           <Route path = '/manage-show' element = {<ManageShow/>}/>
+          <Route path = '/add-show' element = {<AddShow/>}/>
         </Routes>
         
       </div>
