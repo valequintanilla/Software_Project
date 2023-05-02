@@ -9,19 +9,48 @@ import SelectedMovie from './BrowseMovie/SelectMovie';
 import {Link} from 'react-router-dom';
 import {getCurrentMovies} from '../API_Calls/API.js'
 const MovieCatalog = () => {
-	const [movies, setMovies] = useState([]);
+	const [movies, setMovies] = useState([{
+		Title: "The Super Mario Bros. Movie",
+		Year: "2023",
+		imdbID: "tt6718170",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BOTJhNzlmNzctNTU5Yy00N2YwLThhMjQtZDM0YjEzN2Y0ZjNhXkEyXkFqcGdeQXVyMTEwMTQ4MzU5._V1_SX300.jpg"
+		
+	},{
+		Title: "Creed III",
+		Year: "2023",
+		imdbID: "tt11145118",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BYWY1ZDY4MmQtYjhiYS00N2QwLTk1NzgtOWI2YzUwZThjNDYwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg"
+	},{
+		Title: "Hush! Girls Don't Scream",
+		Year: "2013",
+		imdbID: "tt2440036",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BNzA1Nzk2Mzc0Nl5BMl5BanBnXkFtZTgwNDQzNzc2MDE@._V1_SX300.jpg"
+	},{
+		Title: "Shazam! Fury of the Gods",
+		Year: "2023",
+		imdbID: "tt10151854",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BNzJlM2NmZTItOGQyYS00MmE2LTkwZGUtNDFkNmJmZjRjZjcxXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_SX300.jpg"
+	}]);
 	const [shoppingCart, setCart] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
+	
 
-	useEffect(() => {
-		const fetchData = async () => {
-			const fetchedMovies = getCurrentMovies();
-			
-			setMovies(fetchedMovies);
-		};
-		fetchData();
+	//API CALLS WE ARE NOT USING
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const fetchedMovies = getCurrentMovies();
+	// 		for(let movie in fetchedMovies ){
+	// 			setMovies(movie);
+	// 		}
+	// 	};
+	// 	fetchData();
+	// 	console.log(movies);
 		
-	},[]);
+	// },[movies]);
 	
 
 
@@ -37,12 +66,6 @@ const MovieCatalog = () => {
 	// 	}
 	// };
 
-	// useEffect(() => {
-	// 	getCurrentCatalog(searchValue);
-	// }, [searchValue]);
-	// useEffect(() => {
-	// 	getMovies();
-	// },[movies]);
 
     //store in local storage
 	useEffect(() => {
@@ -94,30 +117,14 @@ const MovieCatalog = () => {
 				
 			</div>
 			<button><Link to = '/Userhome' >Go back to home</Link></button>
-			{/* <div className='row'>
+			<div className='row'>
 				<MovieList
 					movies={movies}
 					handleClick={addMovieCart}
 					Component={AddShoppingCart}
 					
 				/>
-			</div> */}
-			{movies.map((movie) => (
-				<div key = {movie.id}>
-					<h2>{movie.title}</h2>
-					<div className='image-container d-flex justify-content-start m-3'>
-					<img src={movie.poster_url} alt={movie.title}></img>
-						<div
-							onClick={() => addMovieCart(movie)}
-							className='overlay d-flex align-items-center justify-content-center'
-						>
-							< AddShoppingCart/>
-						</div>
-					
-					</div>
-				</div>
-				
-			))}
+			</div>
 			<div className='row d-flex align-items-center mt-4 mb-4'>
 				<MovieListHeading heading='Shopping Cart:' />
 			</div>
@@ -127,10 +134,9 @@ const MovieCatalog = () => {
 					handleClick={removeMovieCart}
 					Component={RemoveShoppingCart}
 				/>
-                <button><Link to = '/payment'>Checkout</Link></button>
-                    
-                
+                  <button><Link to = '/payment'>Checkout</Link></button>
 			</div>
+			
 		</div>
 	);
 };
