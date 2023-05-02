@@ -6,17 +6,18 @@
  */
 
 // modules
-const Classes = require("./classes");
+const Classes = require("../src/classes");
 const fs = require('fs');
 
 // database paths
-const d_users = "database/users.csv";
-const d_movies = "database/movies.csv";
-const d_theaters = "database/movies.csv";
-const d_reviews = "database/reviews.csv";
-const d_showings = "database/showings.csv";
-const d_payments = "database/payments.csv";
-const d_tickets = "database/tickets.csv";
+const d_dir = "Server/database";
+const d_users = `${d_dir}/users.csv`;
+const d_movies = `${d_dir}/movies.csv`;
+const d_theaters = `${d_dir}/theaters.csv`;
+const d_reviews = `${d_dir}/reviews.csv`;
+const d_showings = `${d_dir}/showings.csv`;
+const d_payments = `${d_dir}/payments.csv`; 
+const d_tickets = `${d_dir}/tickets.csv`;
 
 /*
  * parse a csv with separator |
