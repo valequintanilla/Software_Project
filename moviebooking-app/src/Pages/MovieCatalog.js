@@ -15,12 +15,9 @@ const MovieCatalog = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			// const fetchedMovies = getCurrentMovies();
-			// setMovies(fetchedMovies);
 			const fetchedMovies = getCurrentMovies();
-			const response = await fetch(fetchedMovies);
-			const responseJson = await response.json();
-			setMovies(responseJson);
+			
+			setMovies(fetchedMovies);
 		};
 		fetchData();
 		
@@ -97,14 +94,30 @@ const MovieCatalog = () => {
 				
 			</div>
 			<button><Link to = '/Userhome' >Go back to home</Link></button>
-			<div className='row'>
+			{/* <div className='row'>
 				<MovieList
 					movies={movies}
 					handleClick={addMovieCart}
 					Component={AddShoppingCart}
 					
 				/>
-			</div>
+			</div> */}
+			{movies.map((movie) => (
+				<div key = {movie.id}>
+					<h2>{movie.title}</h2>
+					<div className='image-container d-flex justify-content-start m-3'>
+					<img src={movie.poster_url} alt={movie.title}></img>
+						<div
+							onClick={() => addMovieCart(movie)}
+							className='overlay d-flex align-items-center justify-content-center'
+						>
+							< AddShoppingCart/>
+						</div>
+					
+					</div>
+				</div>
+				
+			))}
 			<div className='row d-flex align-items-center mt-4 mb-4'>
 				<MovieListHeading heading='Shopping Cart:' />
 			</div>

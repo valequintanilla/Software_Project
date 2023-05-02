@@ -23,7 +23,9 @@ function Navbar() {
         <Link to = '/loginAdmin'>
           <button>Admin?</button>
         </Link>
-        
+        <Link to = '/browse'>
+          <button>Movie Catalog</button>
+        </Link>
     </div>
     
   );

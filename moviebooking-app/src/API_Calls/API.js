@@ -4,7 +4,7 @@ import { Movie, PaymentMethod, Ticket, User} from "../classes";
 
 const authourizeUser = (email) => {
     const password = ' '
-    axios.get('/Login', {email})
+    axios.get('/login', {email})
     .then((res) => {
         password = res.data.password
         return password
