@@ -135,7 +135,8 @@ function getMovieFromID(id) {
                 parseInt(record[0]), // id
                 record[1],           // title
                 new Date(record[2]), // release date
-                record[3]            // poster url
+                record[3],           // poster url
+                record[4]            // summary
             );
         } 
     }
@@ -239,7 +240,8 @@ function getFullCatalog() {
             parseInt(record[0]), // id
             record[1],           // title
             new Date(record[2]), // release date
-            record[3]            // poster url
+            record[3],           // poster url
+            record[4]            //// summary
         );
         movies.push(movie);
     }
@@ -334,6 +336,7 @@ function addMovie(movie) {
         movie.title,
         movie.release_date.toISOString(),
         movie.poster_url,
+        movie.summary
     ];
     records.push(record);
     writeFile(d_users, records);
@@ -379,10 +382,10 @@ function getReviewsByID(movieID) {
 function addReview(review) {
     records = parseFile(d_reviews);
     record = [
-        movie.id,
-        movie.title,
-        movie.release_date.toISOString(),
-        movie.poster_url,
+        review.movie,
+        review.id,
+        review.author,
+        review.body
     ];
     records.push(record);
     writeFile(d_reviews, records);

@@ -29,11 +29,12 @@ class User {
 }
 
 class Movie {
-  constructor(id, title, release_date, poster_url) {
+  constructor(id, title, release_date, poster_url, summary) {
     this.id = id;
     this.title = title;
     this.release_date = release_date;
     this.poster_url = poster_url;
+    this.summary = summary;
   }
 }
 
