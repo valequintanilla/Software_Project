@@ -16,7 +16,7 @@ app.use(cors())
 const PORT = '3500'
  
 //Send login credentials to authorization function
-app.get('/Login', (req,res) => {
+app.get('/login', (req,res) => {
     const email = req.body.email
     db.loginCustomer(email)
     .then((data) => {
