@@ -4,22 +4,43 @@ import { Ticket } from '../classes';
 import { bookTicket } from '../API_Calls/API';
 
 const Payment = ({ shoppingCart }) => {
-  const [paymentMethod, setPaymentMethod] = useState('');
-  const [selectedTheater, setSelectedTheater] = useState('');
-  const [time, setTime] = useState('');
-  const [seat, setSeat] = useState('');
-  const [owner, setOwner] = useState('');
-
   const navigate = useNavigate();
 
+  const [movieDetails, setMovieDetails] = useState(
+    shoppingCart.map((movie) => ({
+      movieId: movie.imdbID,
+      theater: '',
+      time: '',
+      seat: '',
+      owner: '',
+    }))
+  );
+
+  const updateMovieDetails = (index, key, value) => {
+    const updatedDetails = [...movieDetails];
+    updatedDetails[index][key] = value;
+    setMovieDetails(updatedDetails);
+  };
+
   const handleConfirmPurchase = async () => {
-    if (!selectedTheater || !seat || !time || !owner) {
-      alert("Please fill in all required fields.");
+    if (
+      !movieDetails.every(
+        (movie) =>
+          movie.theater && movie.time && movie.seat && movie.owner
+      )
+    ) {
+      alert('Please fill in all required fields for each movie.');
       return;
     }
 
-    for (const movie of shoppingCart) {
-      const ticket = new Ticket(movie.id, selectedTheater, time, seat, owner);
+    for (const movie of movieDetails) {
+      const ticket = new Ticket(
+        movie.movieId,
+        movie.theater,
+        movie.time,
+        movie.seat,
+        movie.owner
+      );
 
       try {
         const status = await bookTicket(ticket);
@@ -36,77 +57,48 @@ const Payment = ({ shoppingCart }) => {
   return (
     <div>
       <h1>Payment</h1>
-      <div>
-        <button onClick={() => setPaymentMethod('credit')}>Credit</button>
-        <button onClick={() => setPaymentMethod('debit')}>Debit</button>
-        <button onClick={() => setPaymentMethod('paypal')}>PayPal</button>
-      </div>
-      {paymentMethod === 'credit' && (
-        <div>
-          <h2>Credit Card Information</h2>
-          <input type="text" placeholder="Card Number" />
-          <input type="text" placeholder="Expiration Date" />
-          <input type="text" placeholder="CVV" />
+      {shoppingCart.map((movie, index) => (
+        <div key={movie.imdbID}>
+          <h3>{movie.Title}</h3>
+          <label htmlFor={`theater-${index}`}>Theater Location:</label>
+          <select
+            id={`theater-${index}`}
+            value={movieDetails[index].theater}
+            onChange={(e) =>
+              updateMovieDetails(index, 'theater', e.target.value)
+            }
+          >
+            <option value="">Select a theater</option>
+            <option value="1">Campus Theater</option>
+            <option value="2">South Theater</option>
+            <option value="3">Northwest Theater</option>
+            <option value="4">Southwest Theater</option>
+          </select>
+          <label htmlFor={`time-${index}`}>Time:</label>
+          <input
+            type="time"
+            id={`time-${index}`}
+            value={movieDetails[index].time}
+            onChange={(e) => updateMovieDetails(index, 'time', e.target.value)}
+          />
+          <label htmlFor={`seat-${index}`}>Seat:</label>
+          <input
+            type="number"
+            id={`seat-${index}`}
+            min="1"
+            max="30"
+            value={movieDetails[index].seat}
+            onChange={(e) => updateMovieDetails(index, 'seat', e.target.value)}
+          />
+          <label htmlFor={`owner-${index}`}>Name:</label>
+          <input
+            type="text"
+            id={`owner-${index}`}
+            value={movieDetails[index].owner}
+            onChange={(e) => updateMovieDetails(index, 'owner', e.target.value)}
+          />
         </div>
-      )}
-      {paymentMethod === 'debit' && (
-        <div>
-          <h2>Debit Card Information</h2>
-          <input type="text" placeholder="Card Number" />
-          <input type="text" placeholder="Expiration Date" />
-          <input type="text" placeholder="CVV" />
-        </div>
-      )}
-      {paymentMethod === 'paypal' && (
-        <div>
-          <h2>PayPal Information</h2>
-          <input type="text" placeholder="Email Address" />
-          <input type="password" placeholder="Password" />
-        </div>
-      )}
-      <div>
-        <label htmlFor="theater">Theater Location:</label>
-        <select
-          id="theater"
-          value={selectedTheater}
-          onChange={(e) => setSelectedTheater(e.target.value)}
-        >
-          <option value="">Select a theater</option>
-          <option value="1">Campus Theater</option>
-          <option value="2">South Theater</option>
-          <option value="3">Northwest Theater</option>
-          <option value="4">Southwest Theater</option>
-        </select>
-      </div>
-      <div>
-        <label htmlFor="time">Time:</label>
-        <input
-          type="time"
-          id="time"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="seat">Seat:</label>
-        <input
-          type="number"
-          id="seat"
-          min="1"
-          max="30"
-          value={seat}
-          onChange={(e) => setSeat(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="owner">Name:</label>
-        <input
-          type="text"
-          id="owner"
-          value={owner}
-          onChange={(e) => setOwner(e.target.value)}
-        />
-      </div>
+      ))}
       <div>
         <button onClick={() => navigate('/UserHome')}>Cancel</button>
         <button onClick={handleConfirmPurchase}>Confirm Purchase</button>
@@ -116,4 +108,3 @@ const Payment = ({ shoppingCart }) => {
 };
 
 export default Payment;
-
