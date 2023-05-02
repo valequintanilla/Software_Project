@@ -6,6 +6,7 @@ Server API for making function calls to the database via local server
 require('../src/classes')
 //require('./database')
 const express = require('express')
+const axios = require('axios')
 const cors = require('cors')
 const { PaymentMethod, User, UserType, Movie } = require('../src/classes')
 
@@ -48,10 +49,10 @@ const {
 const app = express()
 app.use(cors())
 
-const PORT = '3000'
+const PORT = '3500'
  
 //Send login credentials to authorization function
-app.get('/login', (req,res) => {
+app.get('/Login', (req,res) => {
     const email = req.body.email
     loginCustomer(email)
     .then((data) => {
@@ -92,8 +93,36 @@ app.post('/register', (req, res) => {
 });
 
 
-//Grab current and upcomig movies from the database
+//Grab current movies
 app.get('/browse', (req,res) => {
+    
+    //add daatbase function to grab movies
+    getCurrentCatalog()
+    .then((data) =>{
+        res.json({
+            allMovies: data.movies,
+        })
+    }).catch((err) => {
+        console.log(err)
+    })
+});
+
+//Grab current movies
+app.get('/current_status', (req,res) => {
+    
+    //add daatbase function to grab movies
+    getCurrentCatalog()
+    .then((data) =>{
+        res.json({
+            allMovies: data.movies,
+        })
+    }).catch((err) => {
+        console.log(err)
+    })
+});
+
+//Grab current movies
+app.get('/manage-show', (req,res) => {
     
     //add daatbase function to grab movies
     getFullCatalog()
@@ -183,7 +212,7 @@ app.get('/viewReview', (req,res) => {
 });
 
 //admin delete option
-app.delete('/delete', (req, res) => {
+app.delete('/manage-show', (req, res) => {
     //never used delete before, need to look into use cases to set up properly 
     const id = req.data.id
 
@@ -248,7 +277,7 @@ app.get('/movieUpcoming', (req, res) => {
 
 
 //Get tickets sold for a moive
-app.get('/status', (req, res) => {
+app.get('/current_status', (req, res) => {
     //need to see how they will id the movie
     const id = req.id
 
@@ -282,7 +311,7 @@ app.post('/addTickets', (req,res) => {
 
 
 //add Movie Showing
-app.post('/addMovie', (req,res) => {
+app.post('/add-show', (req,res) => {
     const movie = new Movie()
     movie = req.movie
      
@@ -298,8 +327,8 @@ app.post('/addMovie', (req,res) => {
 });
 
 app.post('/addPayment', (req,res) => {
-    const payment = new 
-    user = req.user
+    const payment = new PaymentMethod()
+    payment = req.user
      
     //add review to database via function call
     addPayment(payment)
@@ -311,7 +340,11 @@ app.post('/addPayment', (req,res) => {
         console.log(err)
     })
 });
+ 
+axios.create({
+    baseURL: 'http://localhost:3000'
+});
 
 app.listen(PORT, () => {
-    console.log('listening on 3000')
+    console.log('listening on 3500')
 });
