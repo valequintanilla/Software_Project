@@ -30,7 +30,7 @@ function App() {
           <Route path = '/Userhome' element = {<UserHome/>}/>
           <Route path = '/browse' element = {<BrowseMovies/>}/>
           <Route path = '/movieUpcoming' element = {<UpcomingMovies/>}/>
-          <Route path = '/payment' element = {<Payment/>}/>
+          <Route path = '/payment' element = {<PaymentWrapper/>}/>
           <Route path = '/adminhome' element = {<AdminHome/>}/>
           <Route path = '/current-status' element = {<CurrentSatus/>}/>
           <Route path = '/manage-show' element = {<ManageShow/>}/>
