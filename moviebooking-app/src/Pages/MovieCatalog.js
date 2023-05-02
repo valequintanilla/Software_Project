@@ -160,8 +160,9 @@ const MovieCatalog = () => {
 					handleClick={removeMovieCart}
 					Component={RemoveShoppingCart}
 				/>
-                  <button><Link to={{ pathname: '/payment', state: { shoppingCart: shoppingCart },}}>
-    					Checkout</Link></button>
+                  		<button>
+                    			<Link to="/payment">Checkout</Link>
+                		</button>
 			</div>
 			
 		</div>
