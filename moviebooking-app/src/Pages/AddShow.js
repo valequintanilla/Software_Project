@@ -1,38 +1,26 @@
 import React, { useState } from 'react';
+import { addMovie } from '../API_Calls/API';
+import { Movie } from '../classes';
+import { Link } from 'react-router-dom';
 
 const AddShow = () => {
+  const [id, setId] = useState('');
   const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [runtime, setRuntime] = useState('');
-  const [cast, setCast] = useState('');
-  const [synopsis, setSynopsis] = useState('');
+  const [release_date, setReleaseDate] = useState('');
+  const [poster_url, setPosterUrl] = useState('');
+  const [summary, setSummary] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Create the movie object
-    const newMovie = {
-      title,
-      price,
-      runtime,
-      cast,
-      synopsis,
-    };
-
-    // Replace the URL with the actual URL of your backend service to add the movie to the database
+  
+    // Convert the release_date input to the desired format
+    const formattedReleaseDate = new Date(release_date).toISOString();
+  
+    // Create a new instance of the Movie class with the formatted release date
+    const newMovie = new Movie(id, title, formattedReleaseDate, poster_url, summary);
+  
     try {
-      const response = await fetch('/api/movies', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newMovie),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
+      const status = await addMovie(newMovie);
       console.log('Movie added successfully:', newMovie);
     } catch (error) {
       console.error('Error adding movie:', error);
@@ -54,16 +42,25 @@ const AddShow = () => {
   return (
     <div
       style={{
-        backgroundColor: 'red',
+        backgroundColor: 'black',
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        color: 'darkorange'
       }}
     >
       <h1>Add Show</h1>
       <form onSubmit={handleSubmit} style={formStyle}>
+        <label htmlFor="id">ID:</label>
+        <input
+          id="id"
+          type="text"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+          style={inputStyle}
+        />
         <label htmlFor="title">Title:</label>
         <input
           id="title"
@@ -72,54 +69,48 @@ const AddShow = () => {
           onChange={(e) => setTitle(e.target.value)}
           style={inputStyle}
         />
-        <label htmlFor="price">Price:</label>
+        <label htmlFor="release_date">Release Date:</label>
         <input
-          id="price"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          id="release_date"
+          type="date"
+          value={release_date}
+          onChange={(e) => setReleaseDate(e.target.value)}
           style={inputStyle}
         />
-        <label htmlFor="runtime">Runtime:</label>
+        <label htmlFor="poster_url">Poster URL:</label>
         <input
-          id="runtime"
+          id="poster_url"
           type="text"
-          value={runtime}
-          onChange={(e) => setRuntime(e.target.value)}
+          value={poster_url}
+          onChange={(e) => setPosterUrl(e.target.value)}
           style={inputStyle}
         />
-        <label htmlFor="cast">Cast:</label>
-        <input
-          id="cast"
-          type="text"
-          value={cast}
-          onChange={(e) => setCast(e.target.value)}
-          style={inputStyle}
-        />
-        <label htmlFor="synopsis">Synopsis:</label>
+        <label htmlFor="summary">Summary:</label>
         <textarea
-          id="synopsis"
+          id="summary"
           rows="4"
-          value={synopsis}
-          onChange={(e) => setSynopsis(e.target.value)}
+          value={summary}
+          onChange={(e) => setSummary(e.target.value)}
           style={inputStyle}
         />
         <div />
         <div>
+        <Link to="/manage-show">
+            <button
+              style={{
+                backgroundColor: 'white',
+                color: 'black',
+                marginRight: '10px',
+                padding: '10px',
+              }}
+              onClick={() => console.log('Cancel button clicked')}
+            >
+              Cancel
+            </button>
+          </Link>
           <button
             style={{
-              backgroundColor: 'white',
-              color: 'black',
-              marginRight: '10px',
-              padding: '10px',
-            }}
-            onClick={() => console.log('Cancel button clicked')}
-          >
-            Cancel
-          </button>
-          <button
-            style={{
-              backgroundColor: 'white',
+              backgroundColor: 'darkorange',
               color: 'black',
               padding: '10px',
             }}
