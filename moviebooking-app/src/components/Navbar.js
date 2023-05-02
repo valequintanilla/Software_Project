@@ -13,14 +13,14 @@ function Navbar() {
           <button>Home</button>
           </Link>
         
-        <Link to ='/Register'>
+        <Link to ='/register'>
           <button>Create Account</button>
           </Link>
         
-        <Link to = '/Login'>
+        <Link to = '/login'>
           <button>Sign In</button>
         </Link>
-        <Link to = '/AdminLogin'>
+        <Link to = '/loginAdmin'>
           <button>Admin?</button>
         </Link>
         

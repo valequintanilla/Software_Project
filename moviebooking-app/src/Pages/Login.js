@@ -37,8 +37,8 @@ const Login = () => {
         try{
             //CALLING API FUNCTION:
             authourizeUser(email);
-            setEmail(''); //once submitted it will clear the username and pwd components
-            setPwd('');
+            // setEmail(''); //once submitted it will clear the username and pwd components
+            // setPwd('');
             setSuccess(true);
             
 
@@ -96,7 +96,7 @@ const Login = () => {
                         <p>
                             Need an Account?<br/>
                             <span className="line">
-                                <Link to ='/Register'>Create Account</Link>
+                                <Link to ='/register'>Create Account</Link>
                             </span>
                         </p>
                     </div>
