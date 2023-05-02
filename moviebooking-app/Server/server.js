@@ -17,8 +17,8 @@ const PORT = '3500'
  
 //Send login credentials to authorization function
 app.get('/login', (req,res) => {
-    const email = req.body.email
-    db.loginCustomer(email)
+    const log_email = req.data.email
+    db.loginCustomer(log_email)
     .then((data) => {
         res.json({
             password: data.body.password,
