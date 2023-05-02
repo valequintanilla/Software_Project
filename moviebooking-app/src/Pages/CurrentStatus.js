@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getCurrentMovies, ticketsSold } from '../API_Calls/API';
+
 const Movie = ({ image, ticketsSold }) => {
   return (
     <div style={{ marginRight: '10px' }}>
@@ -23,20 +25,22 @@ const CurrentStatus = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedMovies = await getCurrentMovies();
+      const fetchedMovies = getCurrentMovies();
       for (let movie of fetchedMovies) {
-        movie.ticketsSold = await ticketsSold(movie.id);
+        movie.ticketsSold = ticketsSold(movie.id);
       }
       setMovies(fetchedMovies);
     };
 
     fetchData();
   }, []);
+
   const totalTicketsSold = movies.reduce((sum, movie) => sum + movie.ticketsSold, 0);
+  
   return (
     <div
       style={{
-        backgroundColor: 'red',
+        backgroundColor: 'black',
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
@@ -51,11 +55,28 @@ const CurrentStatus = () => {
           <Movie key={movie.id} image={movie.image} ticketsSold={movie.ticketsSold} />
         ))}
       </div>
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '10px',
+          left: '10px',
+        }}
+      >
+        <Link
+          to="/adminhome"
+          style={{
+            backgroundColor: 'darkorange',
+            color: 'black',
+            padding: '10px 20px',
+            textDecoration: 'none',
+            borderRadius: '5px',
+          }}
+        >
+          Homepage
+        </Link>
+      </div>
     </div>
   );
 };
 
-
 export default CurrentStatus;
-
-
