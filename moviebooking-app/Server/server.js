@@ -4,47 +4,11 @@ Server API for making function calls to the database via local server
 *******Need to add error catches after .then promise are added*******
 */
 require('../src/classes')
-//require('./database')
+const db = require('./database')
 const express = require('express')
 const axios = require('axios')
 const cors = require('cors')
 const { PaymentMethod, User, UserType, Movie } = require('../src/classes')
-
-// this is ugly and bad but requires no code change
-// TODO: make it not
-const {
-    parseFile,
-    writeFile,
-    getNextMovieID,
-    getNextReviewID,
-    getNextPaymentID,
-    getUserFromEmail,
-    getMovieFromID,
-    registerCustomer,
-    loginCustomer,
-    loginAdmin,
-    getFullCatalog,
-    getCurrentCatalog,
-    getUpcomingCatalog,
-    searchMovies,
-    removeMovie,
-    removeMovieByID,
-    addMovie,
-    getReviews,
-    getReviewsByID,
-    addReview,
-    getShowings,
-    getShowingsByID,
-    addTicket,
-    addTickets,
-    getTickets,
-    getTicketsByEmail,
-    getTicketsSold,
-    getTicketsSoldByID,
-    getPayments,
-    getPaymentsByEmail,
-    addPayment
-} = require('./database')
 
 const app = express()
 app.use(cors())
@@ -54,7 +18,7 @@ const PORT = '3500'
 //Send login credentials to authorization function
 app.get('/Login', (req,res) => {
     const email = req.body.email
-    loginCustomer(email)
+    db.loginCustomer(email)
     .then((data) => {
         res.json({
             password: data.body.password,
@@ -66,7 +30,7 @@ app.get('/Login', (req,res) => {
 
 app.get('/loginAdmin', (req,res) => {
     const email = req.body.email
-    loginAdmin(email)
+    db.loginAdmin(email)
     .then((data) => {
         res.json({
             password: data.body.password,
@@ -81,7 +45,7 @@ app.post('/register', (req, res) => {
     new_user = req.data.user
     pass = req.data.password
     // send all user info to function call that adds users to the database
-    registerCustomer(new_user, pass)
+    db.registerCustomer(new_user, pass)
     .then(() => {
         res.json({
             status: 'success',
@@ -139,7 +103,7 @@ app.get('/manage-show', (req,res) => {
 app.post('/book', (req, res) => {
     const ticket = new Ticket(req.data.showing, req.data.seat, req.data.owner)
     const status = ''
-    bookTicket(ticket)
+    db.bookTicket(ticket)
     .then(
         res.json({
             status: 'succes',
@@ -154,7 +118,7 @@ app.post('/pay', (req, res) => {
     const payment = new PaymentMethod(req.data.user, req.data.id, req.data.payment_type, req.data.paymen_info)
     const status = ''
 
-    addPayment(payment)
+    db.addPayment(payment)
     .then(
         res.json({
             status: 'success'
@@ -169,7 +133,7 @@ app.post('/pay', (req, res) => {
 app.get('/ticketsEmail', (req,res) => {
     const email = req.email
     //add daatbase function to grab movies
-    getTicketsByEmail(email)
+    db.getTicketsByEmail(email)
     .then((data) =>{
         res.json({
             tickets: data.tickets,
@@ -185,7 +149,7 @@ app.post('/review', (req,res) => {
     review = req.review
      
     //add review to database via function call
-    addReview(review)
+    db.addReview(review)
     .then(
         res.json({
             status: 'success',
@@ -201,7 +165,7 @@ app.post('/review', (req,res) => {
 app.get('/viewReview', (req,res) => {
     
     //add daatbase function to grab movies
-    getReviews()
+    db.getReviews()
     .then((data) =>{
         res.json({
             reviews: data.reviews,
@@ -216,7 +180,7 @@ app.delete('/manage-show', (req, res) => {
     //never used delete before, need to look into use cases to set up properly 
     const id = req.data.id
 
-    removeMovieById(id)
+    db.removeMovieById(id)
     .then(
         res.json({
             status: 'success',
@@ -231,7 +195,7 @@ app.get('/movieInfo', (req, res) => {
     //need to see how they will id the movie
     const id = req.id
 
-    getMovieFromID(id)
+    db.getMovieFromID(id)
     .then((data) => {
         res.json({
             //Need data format for movies stoored in DB
@@ -248,7 +212,7 @@ app.get('/movieCurrent', (req, res) => {
     //need to see how they will id the movie
     const current = new Movie()
 
-    getCurrentCatalog()
+    db.getCurrentCatalog()
     .then((data) => {
         res.json({
             //Need data format for movies stoored in DB
@@ -263,7 +227,7 @@ app.get('/movieCurrent', (req, res) => {
 //Get current status of all currently showing movies
 app.get('/movieUpcoming', (req, res) => {
     
-    getUpcomingCatalog()
+    db.getUpcomingCatalog()
     .then((data) => {
         res.json({
             //Need data format for movies stoored in DB
@@ -281,7 +245,7 @@ app.get('/current_status', (req, res) => {
     //need to see how they will id the movie
     const id = req.id
 
-    getTicketsSold(id)
+    db.getTicketsSold(id)
     .then((data) => {
         res.json({
             //Need data format for movies stoored in DB
@@ -299,7 +263,7 @@ app.post('/addTickets', (req,res) => {
     tickets = req.tickets
      
     //add review to database via function call
-    addTickets(tickets)
+    db.addTickets(tickets)
     .then(
         res.json({
             status: 'success',
@@ -316,7 +280,7 @@ app.post('/add-show', (req,res) => {
     movie = req.movie
      
     //add review to database via function call
-    addMovie(movie)
+    db.addMovie(movie)
     .then(
         res.json({
             status: 'success',
@@ -331,7 +295,7 @@ app.post('/addPayment', (req,res) => {
     payment = req.user
      
     //add review to database via function call
-    addPayment(payment)
+    db.addPayment(payment)
     .then(
         res.json({
             status: 'success',
@@ -346,5 +310,6 @@ axios.create({
 });
 
 app.listen(PORT, () => {
-    console.log('listening on 3500')
+    console.log(`listening on ${PORT}`)
+    console.log(db.getFullCatalog())
 });
