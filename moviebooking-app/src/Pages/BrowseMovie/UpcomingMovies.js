@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MovieList from './BrowseMovie/MovieList';
-import MovieListHeading from './BrowseMovie/MovieListHeading';
-import SearchBox from './BrowseMovie/SearchBox';
-import AddShoppingCart from './BrowseMovie/AddShoppingCart';
-import RemoveShoppingCart from './BrowseMovie/RemoveShoppingCart';
-import SelectedMovie from './BrowseMovie/SelectMovie';
+import MovieList from './MovieList';
+import MovieListHeading from './MovieListHeading';
+import SearchBox from './SearchBox';
+import AddShoppingCart from './AddShoppingCart';
+import RemoveShoppingCart from './RemoveShoppingCart';
+import SelectedMovie from './SelectMovie';
 import {Link} from 'react-router-dom';
-import {getCurrentMovies} from '../API_Calls/API.js'
+import {getCurrentMovies} from '../../API_Calls/API.js'
 const MovieCatalog = () => {
 	const [movies, setMovies] = useState([{
 
@@ -111,20 +111,20 @@ const MovieCatalog = () => {
 		localStorage.setItem('react-movie-app-cart', JSON.stringify(items));
 	};
 
-	const addMovieCart= (movie) => {
-		const newCartList = [...shoppingCart, movie];
-		setCart(newCartList);
-		saveToLocalStorage(newCartList);
-	};
+	// const addMovieCart= (movie) => {
+	// 	const newCartList = [...shoppingCart, movie];
+	// 	setCart(newCartList);
+	// 	saveToLocalStorage(newCartList);
+	// };
 
-	const removeMovieCart = (movie) => {
-		const newCartList = shoppingCart.filter(
-			(shoppingCart) => shoppingCart.imdbID !== movie.imdbID
-		);
+	// const removeMovieCart = (movie) => {
+	// 	const newCartList = shoppingCart.filter(
+	// 		(shoppingCart) => shoppingCart.imdbID !== movie.imdbID
+	// 	);
 
-		setCart(newCartList);
-		saveToLocalStorage(newCartList);
-	};
+	// 	setCart(newCartList);
+	// 	saveToLocalStorage(newCartList);
+	// };
 	const showMovieInfo = (movie) => {
 
 	}
@@ -148,13 +148,13 @@ const MovieCatalog = () => {
 			<div className='row'>
 				<MovieList
 					movies={movies}
-					handleClick={addMovieCart}
-					Component={AddShoppingCart}
+					// handleClick={addMovieCart}
+					// Component={AddShoppingCart}
 					
 				/>
 			</div>
 		
-			<div className='row d-flex align-items-center mt-4 mb-4'>
+			{/* <div className='row d-flex align-items-center mt-4 mb-4'>
 				<MovieListHeading heading='Shopping Cart:' />
 			</div>
 			<div className='row'>
@@ -166,7 +166,7 @@ const MovieCatalog = () => {
                   <button><Link to={{ pathname: '/payment', state: { shoppingCart: shoppingCart },}}>
     					Checkout</Link></button>
 			</div>
-			
+			 */}
 		</div>
 	);
 };

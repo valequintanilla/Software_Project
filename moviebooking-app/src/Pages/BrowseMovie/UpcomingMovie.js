@@ -7,33 +7,50 @@ import SelectedMovie from './SelectMovie';
 import {Link} from 'react-router-dom';
 import Popup from 'reactjs-popup';
 //Catalog of the upcoming movies 
-const UpcomingMovie = () =>{
-    const [movies, setMovies] = useState([{
-		Title: "Star Wars: Episode IX - The Rise of Skywalker",
-		Year: "2019",
-		imdbID: "tt2527338",
-		Type: "movie",
-		Poster: "https://m.media-amazon.com/images/M/MV5BMDljNTQ5ODItZmQwMy00M2ExLTljOTQtZTVjNGE2NTg0NGIxXkEyXkFqcGdeQXVyODkzNTgxMDg@._V1_SX300.jpg"
-	},{
-		Title: "Avengers: Endgame",
-		Year: "2019",
-		imdbID: "tt4154796",
-		Type: "movie",
-		Poster: "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg"
-	},{
-		Title: "Cruella",
-		Year: "2021",
-		imdbID: "tt3228774",
-		Type: "movie",
-		Poster: "https://m.media-amazon.com/images/M/MV5BOWI5YTUxOWEtZmRiZS00ZmQxLWE2NzctYTRiODA2NzE1ZjczXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg"
-	},{
-		Title: "The Super Mario Bros. Movie",
+const UpcomingMovie = () => {
+	const [movies, setMovies] = useState([{
+
+		Title: "Blue Beetle",
 		Year: "2023",
-		imdbID: "tt6718170",
+		imdbID: "tt9362930",
 		Type: "movie",
-		Poster: "https://m.media-amazon.com/images/M/MV5BOTJhNzlmNzctNTU5Yy00N2YwLThhMjQtZDM0YjEzN2Y0ZjNhXkEyXkFqcGdeQXVyMTEwMTQ4MzU5._V1_SX300.jpg"
-	}
-	]);
+		Poster: "https://m.media-amazon.com/images/M/MV5BMjY4ODA0ZWMtNGY2OC00NjUxLThiOGQtNjAyZjdhNjMyZWY4XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+        Summary: "Jaime Reyes suddenly finds himself in possession of an ancient relic of alien biotechnology called the Scarab. When the Scarab chooses Jaime to be its symbiotic host, he's bestowed with an incredible suit of armor that's capable of extraordinary and unpredictable powers, forever changing his destiny as he becomes the superhero Blue Beetle.", 
+		Duration: "1hr 57min",
+		Rate: "PG-13",
+		Tickets: 0
+		
+	},{
+		Title: "Evil Dead Rise",
+		Year: "2023",
+		imdbID: "tt13345606",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BMmZiN2VmMjktZDE5OC00ZWRmLWFlMmEtYWViMTY4NjM3ZmNkXkEyXkFqcGdeQXVyMTI2MTc2ODM3._V1_SX300.jpg",
+		Summary: "A reunion between two estranged sisters gets cut short by the rise of flesh-possessing demons, thrusting them into a primal battle for survival as they face the most nightmarish version of family imaginable.", 
+		Duration: "1hr 36min",
+		Rate: "R",
+		Tickets: 0
+	},{
+		Title: "Fast X",
+		Year: "2023",
+		imdbID: "tt5433140",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BNzZmOTU1ZTEtYzVhNi00NzQxLWI5ZjAtNWNhNjEwY2E3YmZjXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
+		Summary: "After reuniting with Gwen Stacy, Brooklyn's full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. However, when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders. He must soon redefine what it means to be a hero so he can save the people he loves most.", 
+		Duration: "2hr",
+		Rate: "PG-13",
+		Tickets: 0
+	},{
+		Title: "Spider-Man: Across the Spider-Verse",
+		Year: "2023",
+		imdbID: "tt9362722",
+		Type: "movie",
+		Poster: "https://m.media-amazon.com/images/M/MV5BNjk5YTU0OTAtMTM1NC00Zjc1LWEzZjAtOWJkYzcxOGRhNWNhXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_SX300.jpg",
+		Summary: "From New Line Cinema comes “Shazam! Fury of the Gods,” which continues the story of teenage Billy Batson who, upon reciting the magic word “SHAZAM!,” is transformed into his adult Super Hero alter ego, Shazam.", 
+		Duration: "2hr 10min",
+		Rate: "PG",
+		Tickets: 0
+	}]);
 	const [shoppingCart, setCart] = useState([]);
 	const [searchValue, setSearchValue] = useState('');
 
