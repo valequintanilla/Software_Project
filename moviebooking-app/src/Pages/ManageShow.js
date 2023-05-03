@@ -19,3 +19,4 @@ const ManageShows = () => {
       console.error('Error fetching movies:', error);
     });
   }, []);
+}
