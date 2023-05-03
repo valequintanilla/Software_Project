@@ -96,35 +96,35 @@ const MovieCatalog = () => {
 	};
 
 
-	// //store in local storage
-	// useEffect(() => {
-	// 	const movieCart = JSON.parse(
-	// 		localStorage.getItem('react-movie-app-cart')
-	// 	);
+	//store in local storage
+	useEffect(() => {
+		const movieCart = JSON.parse(
+			localStorage.getItem('react-movie-app-cart')
+		);
 
-	// 	if (movieCart) {
-	// 		setCart(movieCart);
-	// 	}
-	// }, []);
+		if (movieCart) {
+			setCart(movieCart);
+		}
+	}, []);
 
-	// const saveToLocalStorage = (items) => {
-	// 	localStorage.setItem('react-movie-app-cart', JSON.stringify(items));
-	// };
+	const saveToLocalStorage = (items) => {
+		localStorage.setItem('react-movie-app-cart', JSON.stringify(items));
+	};
 
-	// const addMovieCart= (movie) => {
-	// 	const newCartList = [...shoppingCart, movie];
-	// 	setCart(newCartList);
-	// 	saveToLocalStorage(newCartList);
-	// };
+	const addMovieCart= (movie) => {
+		const newCartList = [...shoppingCart, movie];
+		setCart(newCartList);
+		saveToLocalStorage(newCartList);
+	};
 
-	// const removeMovieCart = (movie) => {
-	// 	const newCartList = shoppingCart.filter(
-	// 		(shoppingCart) => shoppingCart.imdbID !== movie.imdbID
-	// 	);
+	const removeMovieCart = (movie) => {
+		const newCartList = shoppingCart.filter(
+			(shoppingCart) => shoppingCart.imdbID !== movie.imdbID
+		);
 
-	// 	setCart(newCartList);
-	// 	saveToLocalStorage(newCartList);
-	// };
+		setCart(newCartList);
+		saveToLocalStorage(newCartList);
+	};
 	const showMovieInfo = (movie) => {
 
 	}
