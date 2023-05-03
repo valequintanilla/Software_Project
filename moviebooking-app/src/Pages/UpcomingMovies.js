@@ -147,13 +147,13 @@ const MovieCatalog = () => {
 			<div className='row'>
 				<MovieList
 					movies={movies}
-					handleClick={addMovieCart}
-					Component={AddShoppingCart}
+					// handleClick={addMovieCart}
+					// Component={AddShoppingCart}
 					
 				/>
 			</div>
 		
-			<div className='row d-flex align-items-center mt-4 mb-4'>
+			{/* <div className='row d-flex align-items-center mt-4 mb-4'>
 				<MovieListHeading heading='Shopping Cart:' />
 			</div>
 			<div className='row'>
@@ -164,7 +164,7 @@ const MovieCatalog = () => {
 				/>
                   <button><Link to={{ pathname: '/payment', state: { shoppingCart: shoppingCart },}}>
     					Checkout</Link></button>
-			</div>
+			</div> */}
 			
 		</div>
 	);
