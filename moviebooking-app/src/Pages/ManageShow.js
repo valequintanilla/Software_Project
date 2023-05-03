@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import MovieCatalog from './MovieCatalog';
 import { getMovies, deleteMovie } from '../API_Calls/API';
 import { Movie } from '../classes';
 
+const movies = MovieCatalog();
 const ManageShows = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
