@@ -10,7 +10,7 @@ import AdminLogin from './Pages/AdminLogin';
 import UserHome from './Pages/UserHome';
 import BrowseMovies from './Pages/MovieCatalog';
 import UpcomingMovies from './Pages/BrowseMovie/UpcomingMovie';
-import Payment from './Pages/Payment';
+import PaymentWrapper from './Pages/Payment';
 import AdminHome from './Pages/AdminHomepage';
 import CurrentSatus from './Pages/CurrentStatus.js';
 import ManageShow from './Pages/ManageShow.js';
