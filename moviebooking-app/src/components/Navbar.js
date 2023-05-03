@@ -23,12 +23,12 @@ function Navbar() {
         <Link to = '/loginAdmin'>
           <button>Admin?</button>
         </Link>
-        <Link to = '/browse'>
+        {/* <Link to = '/browse'>
           <button>Movie Catalog</button>
         </Link>
         <Link to = '/movieUpcoming'>
           <button>Upcoming Movies</button>
-        </Link>
+        </Link> */}
     </div>
     
   );

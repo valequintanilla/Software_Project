@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import MovieList from './MovieList';
+import UpcomingMovieList from './UpcomingMovieList';
 import MovieListHeading from './MovieListHeading';
 import SearchBox from './SearchBox';
 import SelectedMovie from './SelectMovie';
@@ -88,7 +88,7 @@ const UpcomingMovie = () => {
 			</div>
 			<button><Link to = '/Userhome' >Go back to home</Link></button>
 			<div className='row'>
-				<MovieList
+				<UpcomingMovieList
 					movies={movies}
 					handleClick={showMovieInfo}
 					Component={SelectedMovie}
