@@ -10,6 +10,7 @@ import {Link} from 'react-router-dom';
 import {getCurrentMovies} from '../API_Calls/API.js'
 const MovieCatalog = () => {
 	const [movies, setMovies] = useState([{
+
 		Title: "Blue Beetle",
 		Year: "2023",
 		imdbID: "tt9362930",
@@ -147,13 +148,13 @@ const MovieCatalog = () => {
 			<div className='row'>
 				<MovieList
 					movies={movies}
-					// handleClick={addMovieCart}
-					// Component={AddShoppingCart}
+					handleClick={addMovieCart}
+					Component={AddShoppingCart}
 					
 				/>
 			</div>
 		
-			{/* <div className='row d-flex align-items-center mt-4 mb-4'>
+			<div className='row d-flex align-items-center mt-4 mb-4'>
 				<MovieListHeading heading='Shopping Cart:' />
 			</div>
 			<div className='row'>
@@ -164,7 +165,7 @@ const MovieCatalog = () => {
 				/>
                   <button><Link to={{ pathname: '/payment', state: { shoppingCart: shoppingCart },}}>
     					Checkout</Link></button>
-			</div> */}
+			</div>
 			
 		</div>
 	);
