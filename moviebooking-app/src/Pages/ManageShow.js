@@ -4,8 +4,8 @@ import MovieCatalog from './MovieCatalog';
 import { getMovies, deleteMovie } from '../API_Calls/API';
 import { Movie } from '../classes';
 
-const movies = MovieCatalog();
 const ManageShows = () => {
+  const movie = MovieCatalog();
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [deleteMode, setDeleteMode] = useState(false);
