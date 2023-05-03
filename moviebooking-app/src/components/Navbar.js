@@ -26,6 +26,9 @@ function Navbar() {
         <Link to = '/browse'>
           <button>Movie Catalog</button>
         </Link>
+        <Link to = '/movieUpcoming'>
+          <button>Upcoming Movies</button>
+        </Link>
     </div>
     
   );
