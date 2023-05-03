@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Ticket } from '../classes';
 import { bookTicket } from '../API_Calls/API';
 
-const Payment = ({ shoppingCart }) => {
+const Payment = ({ shoppingCart, incrementMovieTickets }) => {
   const navigate = useNavigate();
 
   const [movieDetails, setMovieDetails] = useState(
@@ -15,6 +15,8 @@ const Payment = ({ shoppingCart }) => {
       owner: '',
     }))
   );
+
+  const [paymentMethod, setPaymentMethod] = useState('');
 
   const updateMovieDetails = (index, key, value) => {
     const updatedDetails = [...movieDetails];
@@ -30,6 +32,7 @@ const Payment = ({ shoppingCart }) => {
       )
     ) {
       alert('Please fill in all required fields for each movie.');
+
       return;
     }
 
@@ -45,13 +48,18 @@ const Payment = ({ shoppingCart }) => {
       try {
         const status = await bookTicket(ticket);
         console.log(`Ticket booking status: ${status}`);
+        incrementMovieTickets(movie.movieId);
       } catch (err) {
         console.error('Error booking ticket:', err);
       }
     }
 
     // Redirect the user to the UserHome page after successful purchase.
-    navigate('/UserHome');
+    navigate('/tickets', {
+      state: {
+        movieDetails: movieDetails,
+      },
+    });
   };
 
   return (
@@ -60,6 +68,46 @@ const Payment = ({ shoppingCart }) => {
       {shoppingCart.map((movie, index) => (
         <div key={movie.imdbID}>
           <h3>{movie.Title}</h3>
+          <div>
+            <label htmlFor="paymentMethod">Payment Method:</label>
+            
+              <option value="creditCard">Credit Card</option>
+              <option value="debitCard">Debit Card</option>
+              <option value="paypal">PayPal</option>
+            
+          </div>
+        </div>
+      ))}
+      <div>
+        <button onClick={() => setPaymentMethod('credit')}>Credit</button>
+        <button onClick={() => setPaymentMethod('debit')}>Debit</button>
+        <button onClick={() => setPaymentMethod('paypal')}>PayPal</button>
+      </div>
+      {paymentMethod === 'credit' && (
+        <div>
+          <h2>Credit Card Information</h2>
+          <input type="text" placeholder="Card Number" />
+          <input type="text" placeholder="Expiration Date" />
+          <input type="text" placeholder="CVV" />
+        </div>
+      )}
+      {paymentMethod === 'debit' && (
+        <div>
+          <h2>Debit Card Information</h2>
+          <input type="text" placeholder="Card Number" />
+          <input type="text" placeholder="Expiration Date" />
+          <input type="text" placeholder="CVV" />
+        </div>
+      )}
+            {paymentMethod === 'paypal' && (
+        <div>
+          <h2>PayPal Information</h2>
+          <input type="text" placeholder="Email Address" />
+          <input type="password" placeholder="Password" />
+        </div>
+      )}
+      {shoppingCart.map((movie, index) => (
+        <div key={movie.imdbID}>
           <label htmlFor={`theater-${index}`}>Theater Location:</label>
           <select
             id={`theater-${index}`}
@@ -100,7 +148,7 @@ const Payment = ({ shoppingCart }) => {
         </div>
       ))}
       <div>
-        <button onClick={() => navigate('/UserHome')}>Cancel</button>
+        <button onClick={() => navigate('/Userhome')}>Cancel</button>
         <button onClick={handleConfirmPurchase}>Confirm Purchase</button>
       </div>
     </div>
@@ -108,3 +156,4 @@ const Payment = ({ shoppingCart }) => {
 };
 
 export default Payment;
+
